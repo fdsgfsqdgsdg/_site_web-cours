@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IHM - ING1 S2</title>
+    <link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📚 ING1 - S2</h1>
+            <p>IHM</p>
+        </div>
+    </header>
+    <nav class="semester-nav">
+        <div class="nav-left">
+            <button class="nav-action-btn" onclick="window.history.back()" title="Page précédente">← Retour</button>
+            <button class="nav-action-btn" onclick="window.history.forward()" title="Page suivante">Suivant →</button>
+        </div>
+        <div class="nav-center">
+            <a href="../../../s2.html" class="nav-link home" title="Accueil S1">🏠 Accueil</a>
+            <a href="../../../s2.html" class="nav-link ">📚 S1</a>
+            <a href="../../../s2.html" class="nav-link active">📚 S2</a>
+        </div>
+    </nav>
+    <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Haut de page">↑</button>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="globalSearch" placeholder="🔍 Rechercher..." />
+                <label class="search-content-label">
+                    <input type="checkbox" id="searchInContent" />
+                    Rechercher dans le contenu
+                </label>
+            </div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter"><option value="">Toutes les matières</option></select>
+                <select id="typeFilter">
+                    <option value="">Tous les types</option>
+                    <option value="pdf">PDF</option>
+                    <option value="docx">Word</option>
+                    <option value="pptx">PowerPoint</option>
+                </select>
+                <select id="folderFilter">
+                    <option value="">Tous les dossiers</option>
+                    <option value="TD">TD</option>
+                    <option value="CM">CM</option>
+                </select>
+            </div>
+        </div>
+        <div id="searchResults" class="search-results-panel">
+            <div id="resultsContainer"></div>
+        </div>
+        <div class="breadcrumb"><a href="../../../s2.html">🏠 S2</a><span>›</span><a href="../index.html">Java</a><span>›</span><strong>IHM</strong></div>
+        <div class="page-title">
+            <div class="icon">📂</div>
+            <h1>IHM</h1>
+            <p>21 fichier(s) • 6 dossier(s)</p>
+        </div>
+        <div class="folders-section"><h2 class="section-title">📁 Dossiers</h2><div class="courses-grid">
+                <a href="tp1.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TP1</h2>
+                    </div>
+                </a>
+                <a href="tp2.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TP2</h2>
+                    </div>
+                </a>
+                <a href="tp3.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TP3</h2>
+                    </div>
+                </a>
+                <a href="tp4.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TP4</h2>
+                    </div>
+                </a>
+                <a href="demo.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>demo</h2>
+                    </div>
+                </a>
+                <a href="demo1.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>demo1</h2>
+                    </div>
+                </a></div></div>
+        <div class="documents-section"><h2 class="section-title">📄 Fichiers</h2><div class="courses-grid">
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📎</span>.classpath</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S2/S2/Java/IHM/.classpath" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📎</span>.project</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S2/S2/Java/IHM/.project" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">☕</span>Album.java</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S2/S2/Java/IHM/Album.java" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>CM8-TP-IHM-JavaFX.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/CM8-TP-IHM-JavaFX.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/CM8-TP-IHM-JavaFX.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>blanc.jpg</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/blanc.jpg" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/blanc.jpg" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>cours.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/cours.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/cours.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>disabled.jpg</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/disabled.jpg" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/disabled.jpg" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📎</span>doc.zip</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S2/S2/Java/IHM/doc.zip" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>drop.jpg</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/drop.jpg" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/drop.jpg" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>jaune.jpg</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/jaune.jpg" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/jaune.jpg" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>pressed.jpg</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/pressed.jpg" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/pressed.jpg" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>rouge.jpg</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/rouge.jpg" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/rouge.jpg" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📎</span>tp1.jar</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S2/S2/Java/IHM/tp1.jar" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>tp1.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/tp1.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/tp1.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📎</span>tp2.jar</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S2/S2/Java/IHM/tp2.jar" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>tp2.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/tp2.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/tp2.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📎</span>tp3.jar</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S2/S2/Java/IHM/tp3.jar" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>tp3.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/tp3.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/tp3.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>tp4.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/tp4.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/tp4.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>unpressed.jpg</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/unpressed.jpg" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/unpressed.jpg" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>vide.jpg</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Java/IHM/vide.jpg" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Java/IHM/vide.jpg" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div></div></div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ING1 - S2</p>
+        </div>
+    </footer>
+    <script src="../../../search.js"></script>
+    <script src="../../../navigation.js"></script>
+</body>
+</html>

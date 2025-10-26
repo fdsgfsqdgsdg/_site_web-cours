@@ -1,0 +1,9 @@
+Connexion à l'internet avec un câble en salle TD/TP : 
+
+1 - l'étudiant doit avoir une clé vpn a jour (fichier  client.p12)
+	- le fichier se trouve dans  H:\CYTECH-VPN-CLE-PERSONNELLE\ (Système d'Exploitation WINDOWS)
+        - le fichier doit être le dernier fichier généré sur https://vpn-ing.cy-tech.fr/ (sans proxy)
+	- il faut être "connecté" au réseau d'école (Wi-fi EISTI ou cable) pour acceder https://vpn-ing.cy-tech.fr/, ne marche pas avec une connexion partagé de votre téléphone
+        - le fichier doit dater de moins d'un an et avoir le nom "client.p12" et pas client(1).p12 , par exemple
+
+2 - l'étudiant doit activer le proxy

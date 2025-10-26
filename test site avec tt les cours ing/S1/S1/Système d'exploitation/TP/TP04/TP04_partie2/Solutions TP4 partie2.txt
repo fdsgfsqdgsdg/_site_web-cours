@@ -1,0 +1,21 @@
+TP4 - Partie 2
+    
+
+1- Problème de reseau (si connecté avec le réseau de l'école et le proxy n'est pas bien paramètré) :
+
+
+Il faut modifier le fichier apt.conf sur la machine virutelle :
+Taper la commande : sudo nano /etc/apt/apt.conf
+
+
+Ajouter la commande Acquire::http::Proxy "http://proxy.cergy.eisti.fr:3128/"; sur le fichier et faire ctrl x pour sauvegarder
+
+
+2- Sinon : 
+sudo apt update && apt upgrade && apt install transmission-cli transmission-daemon 
+sudo apt update
+sudo apt clean
+sudo apt update
+sudo apt install ssh 
+
+Continuer le TP. 

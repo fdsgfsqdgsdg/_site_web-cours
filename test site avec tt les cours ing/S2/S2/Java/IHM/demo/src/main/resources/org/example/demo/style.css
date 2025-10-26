@@ -1,0 +1,6 @@
+#button {
+    -fx-background-image: url("unpressed.jpg");
+}
+#button:pressed {
+    -fx-background-image: url("pressed.jpg");
+}

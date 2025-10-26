@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ING1 - Semestre 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📚 ING1 - Semestre 1</h1>
+            <p>Tous vos cours et documents organisés par matière</p>
+        </div>
+    </header>
+    <nav class="semester-nav">
+        <div class="nav-left">
+            <button class="nav-action-btn" onclick="window.history.back()" title="Page précédente">← Retour</button>
+            <button class="nav-action-btn" onclick="window.history.forward()" title="Page suivante">Suivant →</button>
+        </div>
+        <div class="nav-center">
+            <a href="index.html" class="nav-link home" title="Accueil S1">🏠 Accueil</a>
+            <a href="index.html" class="nav-link active">📚 S1</a>
+            <a href="s2.html" class="nav-link">📚 S2</a>
+        </div>
+    </nav>
+    <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Haut de page">↑</button>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="globalSearch" placeholder="🔍 Rechercher un document..." />
+                <label class="search-content-label">
+                    <input type="checkbox" id="searchInContent" />
+                    Rechercher dans le contenu
+                </label>
+            </div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter"><option value="">Toutes les matières</option></select>
+                <select id="typeFilter">
+                    <option value="">Tous les types</option>
+                    <option value="pdf">PDF</option>
+                    <option value="docx">Word</option>
+                    <option value="pptx">PowerPoint</option>
+                </select>
+                <select id="folderFilter">
+                    <option value="">Tous les dossiers</option>
+                    <option value="TD">TD</option>
+                    <option value="CM">CM</option>
+                </select>
+            </div>
+        </div>
+        <div id="searchResults" class="search-results-panel">
+            <div id="resultsContainer"></div>
+        </div>
+        <div class="courses-grid">
+            <a href="pages/s1/anglais/index.html" class="course-card-link">
+                <div class="course-card"><span class="course-icon">🇬🇧</span><h2>Anglais</h2></div>
+            </a>
+            <a href="pages/s1/bdd/index.html" class="course-card-link">
+                <div class="course-card"><span class="course-icon">🗄️</span><h2>Base de Données</h2></div>
+            </a>
+            <a href="pages/s1/cef/index.html" class="course-card-link">
+                <div class="course-card"><span class="course-icon">🎤</span><h2>CEF</h2></div>
+            </a>
+            <a href="pages/s1/data-exploration/index.html" class="course-card-link">
+                <div class="course-card"><span class="course-icon">📊</span><h2>Data Exploration</h2></div>
+            </a>
+            <a href="pages/s1/ethique/index.html" class="course-card-link">
+                <div class="course-card"><span class="course-icon">⚖️</span><h2>Éthique</h2></div>
+            </a>
+            <a href="pages/s1/gestion/index.html" class="course-card-link">
+                <div class="course-card"><span class="course-icon">💼</span><h2>Gestion</h2></div>
+            </a>
+            <a href="pages/s1/probabilites/index.html" class="course-card-link">
+                <div class="course-card"><span class="course-icon">🎲</span><h2>Probabilités</h2></div>
+            </a>
+            <a href="pages/s1/systeme/index.html" class="course-card-link">
+                <div class="course-card"><span class="course-icon">💻</span><h2>Système</h2></div>
+            </a>
+            <a href="pages/s1/langages/index.html" class="course-card-link">
+                <div class="course-card"><span class="course-icon">🔤</span><h2>Langages</h2></div>
+            </a>
+        </div>
+    </main>
+    <footer>
+        <div class="container"><p>&copy; 2024 ING1</p></div>
+    </footer>
+    <script src="search.js"></script>
+    <script src="navigation.js"></script>
+</body>
+</html>

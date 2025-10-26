@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu des données - ING1 S1</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📚 ING1 - Semestre 1</h1>
+            <p>Jeu des données</p>
+        </div>
+    </header>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="globalSearch" placeholder="🔍 Rechercher un document, une matière, un TD..." />
+                <label class="search-content-label">
+                    <input type="checkbox" id="searchInContent" />
+                    Rechercher dans le contenu des fichiers
+                </label>
+            </div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter">
+                    <option value="">Toutes les matières</option>
+                    <option value="Anglais">Anglais</option>
+                    <option value="BDD">Base de Données</option>
+                    <option value="CEF">CEF</option>
+                    <option value="Data Exploration">Data Exploration</option>
+                    <option value="Éthique">Éthique</option>
+                    <option value="Gestion">Gestion</option>
+                    <option value="Probabilités">Probabilités</option>
+                    <option value="Système">Système</option>
+                    <option value="Langages">Langages</option>
+                </select>
+                <select id="typeFilter">
+                    <option value="">Tous les types</option>
+                    <option value="pdf">PDF</option>
+                    <option value="docx">Word</option>
+                    <option value="pptx">PowerPoint</option>
+                    <option value="txt">Texte</option>
+                    <option value="sql">SQL</option>
+                    <option value="jpg">Image</option>
+                    <option value="png">Image</option>
+                </select>
+                <select id="folderFilter">
+                    <option value="">Tous les dossiers</option>
+                    <option value="TD">TD</option>
+                    <option value="CM">CM</option>
+                    <option value="Cours">Cours</option>
+                    <option value="Examens">Examens</option>
+                </select>
+            </div>
+        </div>
+        <div id="searchResults" class="search-results-panel">
+            <div id="resultsContainer"></div>
+        </div>
+        <div class="breadcrumb"><a href="../../index.html">🏠 Accueil</a><span>›</span><a href="../index.html">Data exploration</a><span>›</span><strong>Jeu des données</strong></div>
+        <div class="page-title">
+            <div class="icon">📊</div>
+            <h1>Jeu des données</h1>
+            <p>9 fichier(s) • 0 dossier(s)</p>
+        </div>
+        
+        <div class="documents-section"><h2 class="section-title">📄 Fichiers</h2><div class="courses-grid">
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📎</span>.RData</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/Data exploration/Jeu des données/.RData" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📎</span>.Rapp.history</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/Data exploration/Jeu des données/.Rapp.history" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📎</span>.Rhistory</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/Data exploration/Jeu des données/.Rhistory" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📊</span>Commandes.csv</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/Data exploration/Jeu des données/Commandes.csv" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📊</span>DepensesEduData.csv</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/Data exploration/Jeu des données/DepensesEduData.csv" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📊</span>FrenchCities.csv</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/Data exploration/Jeu des données/FrenchCities.csv" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📎</span>Jeu des données.Rproj</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/Data exploration/Jeu des données/Jeu des données.Rproj" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📊</span>SalariesData.csv</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/Data exploration/Jeu des données/SalariesData.csv" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📊</span>WineQuality.csv</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/Data exploration/Jeu des données/WineQuality.csv" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div></div></div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ING1 - Semestre 1</p>
+        </div>
+    </footer>
+    <script src="../../search.js"></script>
+</body>
+</html>

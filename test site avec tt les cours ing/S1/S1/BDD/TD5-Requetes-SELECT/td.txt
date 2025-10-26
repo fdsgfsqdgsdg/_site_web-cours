@@ -1,0 +1,27 @@
+tp 5*/
+select duree from apparition where horaire = (select max(horaire) from apparition);
+select nom from pokemon where (pointCombat, idJoueur) = (select (pointCombat,idJoueur) from pokemon where nom =(select nom from pokemon where nom='Pikachu'));
+/*facon du prof*/
+select nom from pokemon where (pointCombat, idJoueur) = (select (pointCombat,idJoueur) from pokemon where nom =(select nom from pokemon where nom='Pikachu')) and nom <> 'Pikachu';
+
+select pseudonyme from joueur where length(pseudonyme) > all (select length(personnage) from joueur);
+
+select dateControle from defense union select horaire from apparition;
+select dateControle from defense as dateControleUnionHoraire union select horaire from apparition;
+/*intersect n'est pas censé foncitonner*/
+select dateControle from defense intersect select horaire from apparition;
+/*2eme facon*/
+select dateControle from Defense where dateControle in (select horaire from apparition);
+select * from joueur where (pseudonyme like "A%" or pseudonyme like "S%") and personnage <> "BOB";  /*not like bob fonctionne aussi*/
+select * from joueur where pseudonyme RLIKE '^(A|S)' and personnage <> 'Bob';
+
+Select * from joueur where pseudonyme like '[AS]%' and personnage <> 'Bob';/*focntionne pas*/
+/*question 7*/
+Select nom from Pokemon where upper(idjoueur) = 'ADMIN';
+
+/*8*/
+select pseudonyme from joueur where pseudonyme not in (select distinct idjoueur from pokemon where lower(espece) = 'souris');
+
+select latitude, longitude from emplacement where id =(select idemplacement from arene where nom like upper(eisti));
+/*methode prof*/
+select latitude, longitude from Emplacement e, Arene where e.id = idEmplacement and UPPER(nom) ='EISTI';

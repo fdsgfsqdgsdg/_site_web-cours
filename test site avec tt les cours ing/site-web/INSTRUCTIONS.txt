@@ -1,0 +1,54 @@
+========================================
+   SITE WEB ING1 S1 - INSTRUCTIONS
+========================================
+
+DEMARRAGE :
+-----------
+1. Double-cliquez sur "index.html"
+2. Le site s'ouvre dans votre navigateur
+3. Naviguez dans vos matieres !
+
+VERIFICATION :
+--------------
+Pour verifier que tout fonctionne :
+> python verifier_site.py
+
+MISE A JOUR :
+-------------
+Si vous ajoutez des fichiers dans S1 :
+> python generer_site_complet.py
+
+Ce script regenere TOUT automatiquement :
+- Toutes les pages HTML
+- Tous les styles et liens
+- L'index de recherche
+- La navigation complete
+
+CONTENU :
+---------
+✓ 56 pages HTML generees
+✓ 9 matieres completes
+✓ Tous les sous-dossiers accessibles
+✓ 204+ fichiers indexes
+✓ Recherche globale fonctionnelle
+✓ Styles corrects sur toutes les pages
+
+FICHIERS IMPORTANTS :
+---------------------
+- index.html : Page d'accueil
+- style.css : Styles du site
+- search.js : Moteur de recherche
+- generer_site_complet.py : Script de generation
+- verifier_site.py : Script de verification
+- files_index.json : Index de recherche
+
+PROBLEMES ?
+-----------
+Si les styles ne s'affichent pas :
+> python generer_site_complet.py
+
+Cela corrige automatiquement tous les chemins.
+
+========================================
+Tout est pret ! Bon travail ! 🎓
+========================================

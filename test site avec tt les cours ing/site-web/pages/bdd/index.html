@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDD - ING1 S1</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📚 ING1 - Semestre 1</h1>
+            <p>BDD</p>
+        </div>
+    </header>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="globalSearch" placeholder="🔍 Rechercher un document, une matière, un TD..." />
+                <label class="search-content-label">
+                    <input type="checkbox" id="searchInContent" />
+                    Rechercher dans le contenu des fichiers
+                </label>
+            </div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter">
+                    <option value="">Toutes les matières</option>
+                    <option value="Anglais">Anglais</option>
+                    <option value="BDD">Base de Données</option>
+                    <option value="CEF">CEF</option>
+                    <option value="Data Exploration">Data Exploration</option>
+                    <option value="Éthique">Éthique</option>
+                    <option value="Gestion">Gestion</option>
+                    <option value="Probabilités">Probabilités</option>
+                    <option value="Système">Système</option>
+                    <option value="Langages">Langages</option>
+                </select>
+                <select id="typeFilter">
+                    <option value="">Tous les types</option>
+                    <option value="pdf">PDF</option>
+                    <option value="docx">Word</option>
+                    <option value="pptx">PowerPoint</option>
+                    <option value="txt">Texte</option>
+                    <option value="sql">SQL</option>
+                    <option value="jpg">Image</option>
+                    <option value="png">Image</option>
+                </select>
+                <select id="folderFilter">
+                    <option value="">Tous les dossiers</option>
+                    <option value="TD">TD</option>
+                    <option value="CM">CM</option>
+                    <option value="Cours">Cours</option>
+                    <option value="Examens">Examens</option>
+                </select>
+            </div>
+        </div>
+        <div id="searchResults" class="search-results-panel">
+            <div id="resultsContainer"></div>
+        </div>
+        <div class="breadcrumb"><a href="../../index.html">🏠 Accueil</a><span>›</span><strong>BDD</strong></div>
+        <div class="page-title">
+            <div class="icon">🗃️</div>
+            <h1>BDD</h1>
+            <p>18 fichier(s) • 8 dossier(s)</p>
+        </div>
+        <div class="folders-section"><h2 class="section-title">📁 Dossiers</h2><div class="courses-grid">
+                <a href="td1---mcd.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TD1 - MCD</h2>
+                    </div>
+                </a>
+                <a href="td2-du-mcd-au-mld-dependance-fonctionnelle.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TD2-Du-MCD-au-MLD-Dependance-Fonctionnelle</h2>
+                    </div>
+                </a>
+                <a href="td3-normalisation-ldd.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TD3-Normalisation-LDD</h2>
+                    </div>
+                </a>
+                <a href="td4-langage-de-manipulation-de-donnees-lmd.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TD4-Langage-de-Manipulation-de-Donnees-LMD</h2>
+                    </div>
+                </a>
+                <a href="td5-6-associations-collections.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TD5-6-Associations-Collections</h2>
+                    </div>
+                </a>
+                <a href="td5-requetes-select.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TD5-Requetes-SELECT</h2>
+                    </div>
+                </a>
+                <a href="td6-requetes-select.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TD6-Requetes-SELECT</h2>
+                    </div>
+                </a>
+                <a href="td7-requetes-select.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TD7-Requetes-SELECT</h2>
+                    </div>
+                </a></div></div>
+        <div class="documents-section"><h2 class="section-title">📄 Fichiers</h2><div class="courses-grid">
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Cours 1 - Entité Association MCD.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/BDD/Cours 1 - Entité Association MCD.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/BDD/Cours 1 - Entité Association MCD.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Examen-BDD-2022-23-Rattrapage.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/BDD/Examen-BDD-2022-23-Rattrapage.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/BDD/Examen-BDD-2022-23-Rattrapage.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Examen-BDD-2022-23.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/BDD/Examen-BDD-2022-23.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/BDD/Examen-BDD-2022-23.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Exercice MCD Golf Club.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/BDD/Exercice MCD Golf Club.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/BDD/Exercice MCD Golf Club.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>IMG_4258.HEIC</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/BDD/IMG_4258.HEIC" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>IMG_4259.HEIC</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/BDD/IMG_4259.HEIC" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>IMG_4262.HEIC</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/BDD/IMG_4262.HEIC" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>IMG_4263.HEIC</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/BDD/IMG_4263.HEIC" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>MLD.jpg</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/BDD/MLD.jpg" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/BDD/MLD.jpg" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>Pokemons.png</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/BDD/Pokemons.png" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/BDD/Pokemons.png" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>Pokemons2.png</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/BDD/Pokemons2.png" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/BDD/Pokemons2.png" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🖼️</span>Pokemons3.png</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/BDD/Pokemons3.png" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/BDD/Pokemons3.png" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📐</span>golf club.lo1</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/BDD/golf club.lo1" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📐</span>golf club.loo</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/BDD/golf club.loo" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">⚙️</span>maj.bash</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/BDD/maj.bash" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🗄️</span>pokemon_diagram1.mwb</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/BDD/pokemon_diagram1.mwb" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🗃️</span>pokemon_tables.sql</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/BDD/pokemon_tables.sql" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">🗃️</span>pokemon_tables_ex2.sql</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../S1/S1/BDD/pokemon_tables_ex2.sql" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div></div></div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ING1 - Semestre 1</p>
+        </div>
+    </footer>
+    <script src="../../search.js"></script>
+</body>
+</html>

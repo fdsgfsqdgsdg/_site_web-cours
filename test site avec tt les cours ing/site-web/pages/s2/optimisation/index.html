@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimisation linéaire - ING1 S2</title>
+    <link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📚 ING1 - S2</h1>
+            <p>Optimisation linéaire</p>
+        </div>
+    </header>
+    <nav class="semester-nav">
+        <div class="nav-left">
+            <button class="nav-action-btn" onclick="window.history.back()" title="Page précédente">← Retour</button>
+            <button class="nav-action-btn" onclick="window.history.forward()" title="Page suivante">Suivant →</button>
+        </div>
+        <div class="nav-center">
+            <a href="../../../s2.html" class="nav-link home" title="Accueil S1">🏠 Accueil</a>
+            <a href="../../../s2.html" class="nav-link ">📚 S1</a>
+            <a href="../../../s2.html" class="nav-link active">📚 S2</a>
+        </div>
+    </nav>
+    <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Haut de page">↑</button>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="globalSearch" placeholder="🔍 Rechercher..." />
+                <label class="search-content-label">
+                    <input type="checkbox" id="searchInContent" />
+                    Rechercher dans le contenu
+                </label>
+            </div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter"><option value="">Toutes les matières</option></select>
+                <select id="typeFilter">
+                    <option value="">Tous les types</option>
+                    <option value="pdf">PDF</option>
+                    <option value="docx">Word</option>
+                    <option value="pptx">PowerPoint</option>
+                </select>
+                <select id="folderFilter">
+                    <option value="">Tous les dossiers</option>
+                    <option value="TD">TD</option>
+                    <option value="CM">CM</option>
+                </select>
+            </div>
+        </div>
+        <div id="searchResults" class="search-results-panel">
+            <div id="resultsContainer"></div>
+        </div>
+        <div class="breadcrumb"><a href="../../../s2.html">🏠 S2</a><span>›</span><strong>Optimisation linéaire</strong></div>
+        <div class="page-title">
+            <div class="icon">📈</div>
+            <h1>Optimisation linéaire</h1>
+            <p>11 fichier(s) • 1 dossier(s)</p>
+        </div>
+        <div class="folders-section"><h2 class="section-title">📁 Dossiers</h2><div class="courses-grid">
+                <a href="archiv_exam.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>Archiv_Exam</h2>
+                    </div>
+                </a></div></div>
+        <div class="documents-section"><h2 class="section-title">📄 Fichiers</h2><div class="courses-grid">
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Exemple_dual.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Optimisation linéaire/Exemple_dual.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Optimisation linéaire/Exemple_dual.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Note_26_mai_2024.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Optimisation linéaire/Note_26_mai_2024.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Optimisation linéaire/Note_26_mai_2024.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>OptiLin_Info_0 (1).pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Optimisation linéaire/OptiLin_Info_0 (1).pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Optimisation linéaire/OptiLin_Info_0 (1).pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>OptiLin_Info_1 (1).pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Optimisation linéaire/OptiLin_Info_1 (1).pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Optimisation linéaire/OptiLin_Info_1 (1).pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>OptiLin_Info_1bis.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Optimisation linéaire/OptiLin_Info_1bis.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Optimisation linéaire/OptiLin_Info_1bis.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>OptiLin_Info_2 (1).pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Optimisation linéaire/OptiLin_Info_2 (1).pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Optimisation linéaire/OptiLin_Info_2 (1).pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>OptiLin_Info_3 (2).pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Optimisation linéaire/OptiLin_Info_3 (2).pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Optimisation linéaire/OptiLin_Info_3 (2).pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>OptiLin_Info_3bis (1).pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Optimisation linéaire/OptiLin_Info_3bis (1).pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Optimisation linéaire/OptiLin_Info_3bis (1).pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Optim_linear0_23_24.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Optimisation linéaire/Optim_linear0_23_24.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Optimisation linéaire/Optim_linear0_23_24.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Poly-OptiLin_Info.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/Optimisation linéaire/Poly-OptiLin_Info.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/Optimisation linéaire/Poly-OptiLin_Info.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📎</span>Tableau.xlsx</span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S2/S2/Optimisation linéaire/Tableau.xlsx" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div></div></div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ING1 - S2</p>
+        </div>
+    </footer>
+    <script src="../../../search.js"></script>
+    <script src="../../../navigation.js"></script>
+</body>
+</html>
