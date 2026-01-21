@@ -1,7 +1,0 @@
-#button {
-    /*-fx-background-image: url("unpressed.jpg");*/
-    -fx-background-color: red;
-}
-#button:pressed {
-    -fx-background-image: url("pressed.jpg");
-}
