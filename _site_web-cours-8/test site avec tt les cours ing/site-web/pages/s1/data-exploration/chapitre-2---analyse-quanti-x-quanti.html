@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapitre 2 - Analyse Quanti x Quanti - ING1 S1</title>
+    <link rel="stylesheet" href="../../../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        // Gestion du thème (Dark/Light)
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateIcon(next);
+        }
+
+        function updateIcon(theme) {
+            const btn = document.getElementById('themeToggle');
+            btn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Init
+        const saved = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', saved);
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            updateIcon(saved);
+        });
+    </script>
+    
+</head>
+<body>
+    <header>
+        <div class="header-top-row">
+            <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">🌙</button>
+        </div>
+        <div class="container">
+            <h1>📚 ING1 - S1</h1>
+            <p>Chapitre 2 - Analyse Quanti x Quanti</p>
+        </div>
+    </header>
+    <nav class="semester-nav">
+        <div class="nav-left">
+            <button class="nav-action-btn" onclick="window.history.back()" title="Page précédente">← Retour</button>
+            <button class="nav-action-btn" onclick="window.history.forward()" title="Page suivante">Suivant →</button>
+        </div>
+        <div class="nav-center">
+            <a href="../../../index.html" class="nav-link home" title="Accueil S1">🏠 Accueil</a>
+            <a href="../../../index.html" class="nav-link active">📚 S1</a>
+            <a href="../../../s2.html" class="nav-link ">📚 S2</a>
+        </div>
+    </nav>
+    <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Haut de page">↑</button>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="globalSearch" placeholder="🔍 Rechercher un cours, un document..." />
+            </div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter"><option value="">Toutes les matières</option></select>
+                <select id="typeFilter">
+                    <option value="">Tous les types</option>
+                    <option value="pdf">PDF</option>
+                    <option value="docx">Word</option>
+                    <option value="pptx">PowerPoint</option>
+                    <option value="xlsx">Excel</option>
+                </select>
+            </div>
+        </div>
+        <div id="searchResults" class="search-results-panel">
+            <div id="resultsContainer"></div>
+        </div>
+        <div class="breadcrumb"><a href="../../../index.html">🏠 S1</a><span>›</span><a href="../index.html">Data exploration</a><span>›</span><strong>Chapitre 2 - Analyse Quanti x Quanti</strong></div>
+        <div class="page-title">
+            <div class="icon">📂</div>
+            <h1>Chapitre 2 - Analyse Quanti x Quanti</h1>
+            <p>9 fichier(s) • 0 dossier(s)</p>
+        </div>
+        
+        <div class="documents-section"><h2 class="section-title">📄 Fichiers</h2><div class="courses-grid">
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        Cours Perso QantiQanti-.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/Cours Perso QantiQanti-.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/Cours Perso QantiQanti-.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📊</span>
+                        <span class="badge-type badge-csv">CSV</span>
+                        ex2.csv
+                    </span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/ex2.csv" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📎</span>
+                        <span class="badge-type badge-r">R</span>
+                        ex2.R
+                    </span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/ex2.R" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        Exemple-Regression.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/Exemple-Regression.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/Exemple-Regression.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📎</span>
+                        <span class="badge-type badge-r">R</span>
+                        Exercice 3-Qanti-Qanti.R
+                    </span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/Exercice 3-Qanti-Qanti.R" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📎</span>
+                        <span class="badge-type badge-r">R</span>
+                        Exercice 4-Qanti-Qanti.R
+                    </span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/Exercice 4-Qanti-Qanti.R" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        Resume Cours-Regression.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/Resume Cours-Regression.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/Resume Cours-Regression.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        Slides Quanti-Quanti.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/Slides Quanti-Quanti.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/Slides Quanti-Quanti.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TP-QuantQuant - 2023.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/TP-QuantQuant - 2023.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S1/S1/Data exploration/Chapitre 2 - Analyse Quanti x Quanti/TP-QuantQuant - 2023.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div></div></div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ING1 - S1 • Design Premium</p>
+        </div>
+    </footer>
+    <script src="../../../search.js"></script>
+    <script src="../../../navigation.js"></script>
+</body>
+</html>

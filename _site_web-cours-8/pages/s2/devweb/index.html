@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevWeb - ING1 S2</title>
+    <link rel="stylesheet" href="../../../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            document.cookie = "theme=" + next + "; path=/; max-age=31536000"; // 1 year persistence
+            updateIcon(next);
+        }
+        function updateIcon(theme) {
+            const btn = document.getElementById('themeToggle');
+            if(btn) btn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+        }
+        
+        // Immediate application to prevent flash
+        let saved = localStorage.getItem('theme');
+        if (!saved) {
+            const match = document.cookie.match(new RegExp('(^| )theme=([^;]+)'));
+            if (match) saved = match[2];
+        }
+        if (!saved) saved = 'light';
+        
+        document.documentElement.setAttribute('data-theme', saved);
+        document.addEventListener('DOMContentLoaded', () => { updateIcon(saved); });
+
+        function filterCategory(categoryId) {
+            const sections = document.querySelectorAll('.documents-section .section-title');
+            const grids = document.querySelectorAll('.documents-section .courses-grid');
+            const buttons = document.querySelectorAll('.filter-btn');
+            const activeClass = 'active-filter';
+
+            // Reset buttons
+            buttons.forEach(btn => {
+                if (btn.dataset.category === categoryId) {
+                    btn.classList.add(activeClass);
+                } else {
+                    btn.classList.remove(activeClass);
+                }
+            });
+
+            // Filtering
+            sections.forEach(section => {
+                const grid = section.nextElementSibling;
+                // section.id format: "section-safe-cat-id" -> we need to match suffix
+                const sectionId = section.id.replace('section-', '');
+                
+                if (!categoryId || sectionId === categoryId) {
+                    section.style.display = '';
+                    if(grid) grid.style.display = '';
+                } else {
+                    section.style.display = 'none';
+                    if(grid) grid.style.display = 'none';
+                }
+            });
+        }
+    </script>
+    <script>window.SITE_ROOT = "../../../";</script>
+    <script src="../../../files.js"></script>
+    <script src="../../../search.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-top-row">
+            <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">🌙</button>
+        </div>
+        <div class="container">
+            <a href="../../../s2.html" style="text-decoration: none; color: inherit; display: block;">
+                <h1>📚 ING1 - S2</h1>
+                <p>DevWeb</p>
+            </a>
+        </div>
+    </header>
+    <nav class="semester-nav">
+        <div class="nav-left">
+            <button class="nav-action-btn" onclick="window.history.back()" title="Page précédente">← Retour</button>
+            <button class="nav-action-btn" onclick="window.history.forward()" title="Page suivante">Suivant →</button>
+        </div>
+        <div class="nav-center">
+            <a href="../../../s2.html" class="nav-link home" title="Accueil S1">🏠 Accueil</a>
+            <a href="../../../s2.html" class="nav-link ">📚 S1</a>
+            <a href="../../../s2.html" class="nav-link active">📚 S2</a>
+        </div>
+        <div class="nav-right">
+            <button class="nav-action-btn zoom-btn" id="zoomOut" title="Dézoomer">A-</button>
+            <button class="nav-action-btn zoom-btn" id="zoomReset" title="Réinitialiser">100%</button>
+            <button class="nav-action-btn zoom-btn" id="zoomIn" title="Zoomer">A+</button>
+        </div>
+    </nav>
+    <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Haut de page">↑</button>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper"><input type="text" id="globalSearch" placeholder="🔍 Rechercher..." /></div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter"><option value="">Toutes les matières</option></select>
+                <select id="typeFilter"><option value="">Tous les types</option><option value="pdf">PDF</option><option value="docx">Word</option></select>
+            </div>
+        </div>
+        
+        <!-- Filter Chips -->
+        <div class="filter-chips-container">
+            <div class="filter-label">Filtrer par catégorie :</div>
+            <div class="filter-chips">
+                <button class="filter-btn active-filter" onclick="filterCategory('')">Tout afficher</button>
+                <button class="filter-btn" data-category="🎓-examens,-ds--corrections" onclick="filterCategory('🎓-examens,-ds--corrections')">🎓 Examens, DS & Corrections</button><button class="filter-btn" data-category="💻-scripts--code" onclick="filterCategory('💻-scripts--code')">💻 Scripts & Code</button><button class="filter-btn" data-category="📂-documents-divers" onclick="filterCategory('📂-documents-divers')">📂 Documents Divers</button>
+            </div>
+        </div>
+
+        <!-- Table of Contents / Sommaire -->
+        <div class="toc-container">
+            <h3>📑 Sommaire</h3>
+            <div class="toc-grid">
+                
+            <a href="#section-🎓-examens,-ds--corrections" class="toc-item">
+                <span class="toc-name">🎓 Examens, DS & Corrections</span>
+                <span class="toc-count">3</span>
+            </a>
+            <a href="#section-💻-scripts--code" class="toc-item">
+                <span class="toc-name">💻 Scripts & Code</span>
+                <span class="toc-count">2</span>
+            </a>
+            <a href="#section-📂-documents-divers" class="toc-item">
+                <span class="toc-name">📂 Documents Divers</span>
+                <span class="toc-count">1</span>
+            </a>
+            </div>
+        </div>
+
+        <div id="searchResults" class="search-results-panel"><div id="resultsContainer"></div></div>
+        <div class="breadcrumb"><a href="../../../s2.html">🏠 S2</a><span>›</span><strong>DevWeb</strong></div>
+        <div class="page-title">
+            <div class="icon">🌐</div>
+            <h1>DevWeb</h1>
+            <p>6 fichier(s) • 0 dossier(s)</p>
+        </div>
+        <div class="documents-section"><h2 id="section-🎓-examens,-ds--corrections" class="section-title">🎓 Examens, DS & Corrections</h2><div class="courses-grid">
+                    <div class="document-item">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            Sujet Site 1 HTMLCSS.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../test site avec tt les cours ing/tous_les_cours/S2/S2/DevWeb/Sujet Site 1 HTMLCSS.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../test site avec tt les cours ing/tous_les_cours/S2/S2/DevWeb/Sujet Site 1 HTMLCSS.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            Sujet Site 2 JS DOM.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../test site avec tt les cours ing/tous_les_cours/S2/S2/DevWeb/Sujet Site 2 JS DOM.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../test site avec tt les cours ing/tous_les_cours/S2/S2/DevWeb/Sujet Site 2 JS DOM.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            Sujet Site 3 PHP.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../test site avec tt les cours ing/tous_les_cours/S2/S2/DevWeb/Sujet Site 3 PHP.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../test site avec tt les cours ing/tous_les_cours/S2/S2/DevWeb/Sujet Site 3 PHP.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div><h2 id="section-💻-scripts--code" class="section-title">💻 Scripts & Code</h2><div class="courses-grid">
+                    <div class="document-item">
+                        <span class="document-name">
+                            <span class="file-icon">🎨</span>
+                            <span class="badge-type badge-css">CSS</span>
+                            ex1.css
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../test site avec tt les cours ing/tous_les_cours/S2/S2/DevWeb/ex1.css" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item">
+                        <span class="document-name">
+                            <span class="file-icon">🌐</span>
+                            <span class="badge-type badge-html">HTML</span>
+                            ex1.html
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../test site avec tt les cours ing/tous_les_cours/S2/S2/DevWeb/ex1.html" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../test site avec tt les cours ing/tous_les_cours/S2/S2/DevWeb/ex1.html" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div><h2 id="section-📂-documents-divers" class="section-title">📂 Documents Divers</h2><div class="courses-grid">
+                    <div class="document-item">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            Final.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../test site avec tt les cours ing/tous_les_cours/S2/S2/DevWeb/Final.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../test site avec tt les cours ing/tous_les_cours/S2/S2/DevWeb/Final.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div></div>
+        
+    </main>
+    <footer><div class="container"><p>&copy; 2024 ING1 - S2 • Design Premium</p></div></footer>
+    <script src="../../../navigation.js"></script>
+</body>
+</html>

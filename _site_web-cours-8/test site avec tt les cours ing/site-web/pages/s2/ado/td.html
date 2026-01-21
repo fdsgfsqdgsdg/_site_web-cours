@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD - ING1 S2</title>
+    <link rel="stylesheet" href="../../../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        // Gestion du thème (Dark/Light)
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateIcon(next);
+        }
+
+        function updateIcon(theme) {
+            const btn = document.getElementById('themeToggle');
+            btn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Init
+        const saved = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', saved);
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            updateIcon(saved);
+        });
+    </script>
+    
+</head>
+<body>
+    <header>
+        <div class="header-top-row">
+            <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">🌙</button>
+        </div>
+        <div class="container">
+            <h1>📚 ING1 - S2</h1>
+            <p>TD</p>
+        </div>
+    </header>
+    <nav class="semester-nav">
+        <div class="nav-left">
+            <button class="nav-action-btn" onclick="window.history.back()" title="Page précédente">← Retour</button>
+            <button class="nav-action-btn" onclick="window.history.forward()" title="Page suivante">Suivant →</button>
+        </div>
+        <div class="nav-center">
+            <a href="../../../s2.html" class="nav-link home" title="Accueil S1">🏠 Accueil</a>
+            <a href="../../../s2.html" class="nav-link ">📚 S1</a>
+            <a href="../../../s2.html" class="nav-link active">📚 S2</a>
+        </div>
+    </nav>
+    <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Haut de page">↑</button>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="globalSearch" placeholder="🔍 Rechercher un cours, un document..." />
+            </div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter"><option value="">Toutes les matières</option></select>
+                <select id="typeFilter">
+                    <option value="">Tous les types</option>
+                    <option value="pdf">PDF</option>
+                    <option value="docx">Word</option>
+                    <option value="pptx">PowerPoint</option>
+                    <option value="xlsx">Excel</option>
+                </select>
+            </div>
+        </div>
+        <div id="searchResults" class="search-results-panel">
+            <div id="resultsContainer"></div>
+        </div>
+        <div class="breadcrumb"><a href="../../../s2.html">🏠 S2</a><span>›</span><a href="../index.html">ADO - Architecture des ordinateurs</a><span>›</span><strong>TD</strong></div>
+        <div class="page-title">
+            <div class="icon">📂</div>
+            <h1>TD</h1>
+            <p>19 fichier(s) • 0 dossier(s)</p>
+        </div>
+        
+        <div class="documents-section"><h2 class="section-title">📄 Fichiers</h2><div class="courses-grid">
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        Logisim 1.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/Logisim 1.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/Logisim 1.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        Numériser 10 avr. 2024.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/Numériser 10 avr. 2024.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/Numériser 10 avr. 2024.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        Numériser 11 avr. 2024.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/Numériser 11 avr. 2024.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/Numériser 11 avr. 2024.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TD1 Corrige.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD1 Corrige.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD1 Corrige.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TD1-ADO.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD1-ADO.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD1-ADO.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TD2-ADO.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD2-ADO.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD2-ADO.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📝</span>
+                        <span class="badge-type badge-doc">DOC</span>
+                        TD2-ADO_Corrige.doc
+                    </span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD2-ADO_Corrige.doc" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📝</span>
+                        <span class="badge-type badge-docx">DOCX</span>
+                        TD2-ADO_Corrige.docx
+                    </span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD2-ADO_Corrige.docx" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📝</span>
+                        <span class="badge-type badge-docx">DOCX</span>
+                        TD2-ADO_Corrige1.docx
+                    </span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD2-ADO_Corrige1.docx" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📝</span>
+                        <span class="badge-type badge-docx">DOCX</span>
+                        TD2-ADO_Corrige2.docx
+                    </span>
+                    <div class="document-actions">
+                        
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD2-ADO_Corrige2.docx" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TD3 Corrige.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD3 Corrige.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD3 Corrige.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TD3-ADO.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD3-ADO.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD3-ADO.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TD4 Corrige.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD4 Corrige.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD4 Corrige.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TD4-ADO.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD4-ADO.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD4-ADO.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TD5-ADO.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD5-ADO.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD5-ADO.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TD6-ADO Corrige.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD6-ADO Corrige.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD6-ADO Corrige.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TD6-ADO.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD6-ADO.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD6-ADO.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TD7-ADO Corrige.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD7-ADO Corrige.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD7-ADO Corrige.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name">
+                        <span class="file-icon">📄</span>
+                        <span class="badge-type badge-pdf">PDF</span>
+                        TD7-ADO.pdf
+                    </span>
+                    <div class="document-actions">
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD7-ADO.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../../S2/S2/ADO - Architecture des ordinateurs/TD/TD7-ADO.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div></div></div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ING1 - S2 • Design Premium</p>
+        </div>
+    </footer>
+    <script src="../../../search.js"></script>
+    <script src="../../../navigation.js"></script>
+</body>
+</html>

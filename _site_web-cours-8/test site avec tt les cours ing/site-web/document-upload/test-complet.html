@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Complet - Système d'Upload</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="upload-modal.css">
+    <style>
+        body { padding: 40px; background: var(--bg-body); }
+        .test-panel { background: var(--card-bg); padding: 30px; border-radius: 15px; margin-bottom: 20px; box-shadow: var(--shadow); }
+        .test-title { color: var(--primary); font-size: 1.5em; margin-bottom: 15px; }
+        .test-btn { padding: 12px 24px; background: var(--primary); color: white; border: none; border-radius: 10px; cursor: pointer; margin: 5px; }
+        .test-result { margin-top: 15px; padding: 15px; background: var(--bg-body); border-radius: 8px; font-family: monospace; }
+    </style>
+</head>
+<body>
+    <div class="test-panel">
+        <div class="test-title">🧪 Tests du Système d'Upload</div>
+        
+        <h3>1. Test d'ouverture de la modale</h3>
+        <button class="test-btn" onclick="testOpenModal()">Ouvrir la modale</button>
+        
+        <h3>2. Test de classification</h3>
+        <button class="test-btn" onclick="testClassification()">Tester l'algorithme</button>
+        <div id="classificationResult" class="test-result" style="display:none;"></div>
+        
+        <h3>3. Test des fonctionnalités avancées</h3>
+        <button class="test-btn" onclick="testAdvancedFeatures()">Tester les fonctionnalités</button>
+        
+        <h3>4. Test de performance</h3>
+        <button class="test-btn" onclick="testPerformance()">Test de performance</button>
+        <div id="performanceResult" class="test-result" style="display:none;"></div>
+        
+        <h3>5. Vérification complète</h3>
+        <button class="test-btn" onclick="runAllTests()">Lancer tous les tests</button>
+        <div id="allTestsResult" class="test-result" style="display:none;"></div>
+    </div>
+
+    <script src="content-extractor.js"></script>
+    <script src="classifier.js"></script>
+    <script src="upload-manager.js"></script>
+    <script src="animations.js"></script>
+    <script src="advanced-features.js"></script>
+    
+    <script>
+        function testOpenModal() {
+            if (typeof uploadManager !== 'undefined') {
+                uploadManager.openModal();
+                console.log('✓ Modale ouverte avec succès');
+            } else {
+                console.error('✗ uploadManager non défini');
+            }
+        }
+
+        function testClassification() {
+            const testFiles = [
+                'examen_bdd_2023.pdf',
+                'td3_probabilites.pdf',
+                'correction_tp_java.pdf',
+                'cours_systeme_linux.pdf',
+                'projet_python_pandas.py'
+            ];
+            
+            const classifier = new DocumentClassifier();
+            const results = testFiles.map(file => {
+                const result = classifier.classify(file);
+                return {
+                    fichier: file,
+                    matière: result.subject,
+                    type: result.documentType,
+                    confiance: result.confidence + '%'
+                };
+            });
+            
+            const resultDiv = document.getElementById('classificationResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<pre>' + JSON.stringify(results, null, 2) + '</pre>';
+            console.table(results);
+            console.log('✓ Test de classification terminé');
+        }
+
+        function testAdvancedFeatures() {
+            const features = [
+                'Détection de doublons',
+                'Actions groupées',
+                'Prévisualisation',
+                'Navigation clavier',
+                'Statistiques temps réel'
+            ];
+            
+            console.log('✓ Fonctionnalités avancées disponibles:');
+            features.forEach(f => console.log('  - ' + f));
+        }
+
+        function testPerformance() {
+            const start = performance.now();
+            const classifier = new DocumentClassifier();
+            
+            // Test de 100 classifications
+            for (let i = 0; i < 100; i++) {
+                classifier.classify('test_file_' + i + '.pdf');
+            }
+            
+            const duration = (performance.now() - start).toFixed(2);
+            const resultDiv = document.getElementById('performanceResult');
+            resultDiv.style.display = 'block';
+            resultDiv.textContent = `100 classifications en ${duration}ms (${(duration/100).toFixed(2)}ms par fichier)`;
+            console.log(`✓ Performance: ${duration}ms pour 100 classifications`);
+        }
+
+        function runAllTests() {
+            const resultDiv = document.getElementById('allTestsResult');
+            resultDiv.style.display = 'block';
+            
+            const tests = [];
+            
+            // Test 1: Vérification des objets
+            tests.push({
+                test: 'Objets définis',
+                result: typeof uploadManager !== 'undefined' && 
+                        typeof advancedFeatures !== 'undefined' &&
+                        typeof DocumentClassifier !== 'undefined'
+            });
+            
+            // Test 2: Classifier
+            const classifier = new DocumentClassifier();
+            tests.push({
+                test: 'Classifier fonctionnel',
+                result: classifier.classify('test.pdf').hasOwnProperty('subject')
+            });
+            
+            // Test 3: Matières
+            const subjects = classifier.getAllSubjects();
+            tests.push({
+                test: 'Matières chargées',
+                result: subjects.length === 19
+            });
+            
+            // Test 4: Types de documents
+            tests.push({
+                test: 'Types de documents',
+                result: Object.keys(classifier.documentTypes).length === 8
+            });
+            
+            // Test 5: Content Extractor
+            tests.push({
+                test: 'Content Extractor',
+                result: typeof ContentExtractor !== 'undefined'
+            });
+            
+            const passed = tests.filter(t => t.result).length;
+            const total = tests.length;
+            
+            resultDiv.innerHTML = `
+                <strong>Résultats: ${passed}/${total} tests réussis</strong><br><br>
+                ${tests.map(t => `${t.result ? '✓' : '✗'} ${t.test}`).join('<br>')}
+            `;
+            
+            console.log(`\n=== Tests complets ===`);
+            console.log(`${passed}/${total} tests réussis`);
+            console.table(tests);
+        }
+
+        // Auto-test au chargement
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                console.log('%c🧪 Système de test chargé', 'color: #667eea; font-size: 16px; font-weight: bold;');
+                console.log('Utilisez les boutons pour tester les fonctionnalités');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

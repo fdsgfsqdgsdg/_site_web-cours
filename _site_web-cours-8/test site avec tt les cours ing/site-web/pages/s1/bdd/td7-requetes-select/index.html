@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TD7-Requetes-SELECT - ING1 S1</title>
+    <link rel="stylesheet" href="../../../../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            document.cookie = "theme=" + next + "; path=/; max-age=31536000"; // 1 year persistence
+            updateIcon(next);
+        }
+        function updateIcon(theme) {
+            const btn = document.getElementById('themeToggle');
+            if(btn) btn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+        }
+        
+        // Immediate application to prevent flash
+        let saved = localStorage.getItem('theme');
+        if (!saved) {
+            const match = document.cookie.match(new RegExp('(^| )theme=([^;]+)'));
+            if (match) saved = match[2];
+        }
+        if (!saved) saved = 'light';
+        
+        document.documentElement.setAttribute('data-theme', saved);
+        document.addEventListener('DOMContentLoaded', () => { updateIcon(saved); });
+
+        function applyFilters() {
+            // Get States
+            const activeCategoryBtn = document.querySelector('.filter-btn.active-filter');
+            const categoryId = activeCategoryBtn ? activeCategoryBtn.dataset.category : '';
+            
+            const yearSelect = document.getElementById('yearFilter');
+            const yearVal = yearSelect ? yearSelect.value : '';
+            
+            // Apply to all items
+            const sections = document.querySelectorAll('.documents-section .section-title');
+            
+            sections.forEach(section => {
+                const grid = section.nextElementSibling;
+                const sectionId = section.id.replace('section-', '');
+                
+                // 1. Check Category Visibility
+                const isCatMatch = !categoryId || sectionId === categoryId;
+                
+                // 2. Check Items inside this Category
+                let visibleCount = 0;
+                if (grid) {
+                    const items = grid.querySelectorAll('.document-item');
+                    items.forEach(item => {
+                        const itemYear = item.dataset.year || '';
+                        const isYearMatch = !yearVal || itemYear === yearVal;
+                        
+                        if (isYearMatch && isCatMatch) {
+                            item.style.display = '';
+                            visibleCount++;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                }
+                
+                // 3. Toggle Section Visibility based on children
+                // Note: The original logic hid sections based on Category.
+                // Now we hide sections if Category doesn't match OR if no children are visible (due to Year)
+                
+                if (isCatMatch && visibleCount > 0) {
+                     section.style.display = '';
+                     if(grid) grid.style.display = '';
+                } else {
+                     section.style.display = 'none';
+                     if(grid) grid.style.display = 'none';
+                }
+            });
+        }
+
+        function filterCategory(categoryId) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const activeClass = 'active-filter';
+
+            // Reset buttons
+            buttons.forEach(btn => {
+                if (btn.dataset.category === categoryId) {
+                    btn.classList.add(activeClass);
+                } else {
+                    btn.classList.remove(activeClass);
+                }
+            });
+            
+            applyFilters();
+        }
+        
+        function filterYear() {
+            applyFilters();
+        }
+    </script>
+    <script>window.SITE_ROOT = "../../../../";</script>
+    <script src="../../../../files.js"></script>
+    <script src="../../../../search.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-top-row">
+            <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">🌙</button>
+        </div>
+        <div class="container">
+            <a href="../../../../index.html" style="text-decoration: none; color: inherit; display: block;">
+                <h1>📚 ING1 - S1</h1>
+                <p>TD7-Requetes-SELECT</p>
+            </a>
+        </div>
+    </header>
+    <nav class="semester-nav">
+        <div class="nav-left">
+            <button class="nav-action-btn" onclick="window.history.back()" title="Page précédente">← Retour</button>
+            <button class="nav-action-btn" onclick="window.history.forward()" title="Page suivante">Suivant →</button>
+        </div>
+        <div class="nav-center">
+            <a href="../../../../index.html" class="nav-link home" title="Accueil S1">🏠 Accueil</a>
+            <a href="../../../../index.html" class="nav-link active">📚 S1</a>
+            <a href="../../../../s2.html" class="nav-link ">📚 S2</a>
+        </div>
+        <div class="nav-right">
+            <button class="nav-action-btn zoom-btn" id="zoomOut" title="Dézoomer">A-</button>
+            <button class="nav-action-btn zoom-btn" id="zoomReset" title="Réinitialiser">100%</button>
+            <button class="nav-action-btn zoom-btn" id="zoomIn" title="Zoomer">A+</button>
+        </div>
+    </nav>
+    <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Haut de page">↑</button>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper"><input type="text" id="globalSearch" placeholder="🔍 Rechercher..." /></div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter" style="display:none"><option value="">Toutes les matières</option></select>
+                <select id="yearFilter" onchange="filterYear()"><option value="">Toutes les années</option></select>
+                <select id="typeFilter"><option value="">Tous les types</option><option value="pdf">PDF</option><option value="docx">Word</option></select>
+            </div>
+        </div>
+        
+        <!-- Filter Chips -->
+        <div class="filter-chips-container">
+            <div class="filter-label">Filtrer par catégorie :</div>
+            <div class="filter-chips">
+                <button class="filter-btn active-filter" onclick="filterCategory('')">Tout afficher</button>
+                <button class="filter-btn" data-category="📝-travaux-dirigés-(td)" onclick="filterCategory('📝-travaux-dirigés-(td)')">📝 Travaux Dirigés (TD)</button><button class="filter-btn" data-category="🎓-examens,-ds--corrections" onclick="filterCategory('🎓-examens,-ds--corrections')">🎓 Examens, DS & Corrections</button><button class="filter-btn" data-category="🛠️-travaux-pratiques-(tp)" onclick="filterCategory('🛠️-travaux-pratiques-(tp)')">🛠️ Travaux Pratiques (TP)</button>
+            </div>
+        </div>
+
+        <!-- Table of Contents / Sommaire -->
+        <div class="toc-container">
+            <h3>📑 Sommaire</h3>
+            <div class="toc-grid">
+                
+            <a href="#section-📝-travaux-dirigés-(td)" class="toc-item">
+                <span class="toc-name">📝 Travaux Dirigés (TD)</span>
+                <span class="toc-count">1</span>
+            </a>
+            <a href="#section-🎓-examens,-ds--corrections" class="toc-item">
+                <span class="toc-name">🎓 Examens, DS & Corrections</span>
+                <span class="toc-count">1</span>
+            </a>
+            <a href="#section-🛠️-travaux-pratiques-(tp)" class="toc-item">
+                <span class="toc-name">🛠️ Travaux Pratiques (TP)</span>
+                <span class="toc-count">2</span>
+            </a>
+            </div>
+        </div>
+
+        <div id="searchResults" class="search-results-panel"><div id="resultsContainer"></div></div>
+        <div class="breadcrumb"><a href="../../../../index.html">🏠 S1</a><span>›</span><a href="../index.html">BDD</a><span>›</span><strong>TD7-Requetes-SELECT</strong></div>
+        <div class="page-title">
+            <div class="icon">📂</div>
+            <h1>TD7-Requetes-SELECT</h1>
+            <p>4 fichier(s) • 0 dossier(s)</p>
+            <a href="td7-requetes-select_complet.zip" class="btn btn-download-all" download>📦 Tout télécharger (.zip)</a>
+        </div>
+        <div class="documents-section"><h2 id="section-📝-travaux-dirigés-(td)" class="section-title">📝 Travaux Dirigés (TD)</h2><div class="courses-grid">
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">🗃️</span>
+                            <span class="badge-type badge-sql">SQL</span>
+                            pokemon_tables_TD7.sql
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../../tous_les_cours/S1/S1/BDD/TD7-Requetes-SELECT/pokemon_tables_TD7.sql" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div><h2 id="section-🎓-examens,-ds--corrections" class="section-title">🎓 Examens, DS & Corrections</h2><div class="courses-grid">
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">🗃️</span>
+                            <span class="badge-type badge-sql">SQL</span>
+                            reponsestd7.sql
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../../tous_les_cours/S1/S1/BDD/TD7-Requetes-SELECT/reponsestd7.sql" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div><h2 id="section-🛠️-travaux-pratiques-(tp)" class="section-title">🛠️ Travaux Pratiques (TP)</h2><div class="courses-grid">
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            BDD1Seance7Select.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../../tous_les_cours/S1/S1/BDD/TD7-Requetes-SELECT/BDD1Seance7Select.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../../tous_les_cours/S1/S1/BDD/TD7-Requetes-SELECT/BDD1Seance7Select.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            TD7Select.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../../tous_les_cours/S1/S1/BDD/TD7-Requetes-SELECT/TD7Select.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../../tous_les_cours/S1/S1/BDD/TD7-Requetes-SELECT/TD7Select.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div></div>
+        
+    </main>
+    <footer><div class="container"><p>&copy; 2024 ING1 - S1 • Design Premium</p></div></footer>
+    <script src="../../../../navigation.js"></script>
+</body>
+</html>

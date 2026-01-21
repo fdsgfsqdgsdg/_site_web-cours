@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data exploration - ING1 S1</title>
+    <link rel="stylesheet" href="../../../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            document.cookie = "theme=" + next + "; path=/; max-age=31536000"; // 1 year persistence
+            updateIcon(next);
+        }
+        function updateIcon(theme) {
+            const btn = document.getElementById('themeToggle');
+            if(btn) btn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+        }
+        
+        // Immediate application to prevent flash
+        let saved = localStorage.getItem('theme');
+        if (!saved) {
+            const match = document.cookie.match(new RegExp('(^| )theme=([^;]+)'));
+            if (match) saved = match[2];
+        }
+        if (!saved) saved = 'light';
+        
+        document.documentElement.setAttribute('data-theme', saved);
+        document.addEventListener('DOMContentLoaded', () => { updateIcon(saved); });
+
+        function applyFilters() {
+            // Get States
+            const activeCategoryBtn = document.querySelector('.filter-btn.active-filter');
+            const categoryId = activeCategoryBtn ? activeCategoryBtn.dataset.category : '';
+            
+            const yearSelect = document.getElementById('yearFilter');
+            const yearVal = yearSelect ? yearSelect.value : '';
+            
+            // Apply to all items
+            const sections = document.querySelectorAll('.documents-section .section-title');
+            
+            sections.forEach(section => {
+                const grid = section.nextElementSibling;
+                const sectionId = section.id.replace('section-', '');
+                
+                // 1. Check Category Visibility
+                const isCatMatch = !categoryId || sectionId === categoryId;
+                
+                // 2. Check Items inside this Category
+                let visibleCount = 0;
+                if (grid) {
+                    const items = grid.querySelectorAll('.document-item');
+                    items.forEach(item => {
+                        const itemYear = item.dataset.year || '';
+                        const isYearMatch = !yearVal || itemYear === yearVal;
+                        
+                        if (isYearMatch && isCatMatch) {
+                            item.style.display = '';
+                            visibleCount++;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                }
+                
+                // 3. Toggle Section Visibility based on children
+                // Note: The original logic hid sections based on Category.
+                // Now we hide sections if Category doesn't match OR if no children are visible (due to Year)
+                
+                if (isCatMatch && visibleCount > 0) {
+                     section.style.display = '';
+                     if(grid) grid.style.display = '';
+                } else {
+                     section.style.display = 'none';
+                     if(grid) grid.style.display = 'none';
+                }
+            });
+        }
+
+        function filterCategory(categoryId) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const activeClass = 'active-filter';
+
+            // Reset buttons
+            buttons.forEach(btn => {
+                if (btn.dataset.category === categoryId) {
+                    btn.classList.add(activeClass);
+                } else {
+                    btn.classList.remove(activeClass);
+                }
+            });
+            
+            applyFilters();
+        }
+        
+        function filterYear() {
+            applyFilters();
+        }
+    </script>
+    <script>window.SITE_ROOT = "../../../";</script>
+    <script src="../../../files.js"></script>
+    <script src="../../../search.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-top-row">
+            <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">🌙</button>
+        </div>
+        <div class="container">
+            <a href="../../../index.html" style="text-decoration: none; color: inherit; display: block;">
+                <h1>📚 ING1 - S1</h1>
+                <p>Data exploration</p>
+            </a>
+        </div>
+    </header>
+    <nav class="semester-nav">
+        <div class="nav-left">
+            <button class="nav-action-btn" onclick="window.history.back()" title="Page précédente">← Retour</button>
+            <button class="nav-action-btn" onclick="window.history.forward()" title="Page suivante">Suivant →</button>
+        </div>
+        <div class="nav-center">
+            <a href="../../../index.html" class="nav-link home" title="Accueil S1">🏠 Accueil</a>
+            <a href="../../../index.html" class="nav-link active">📚 S1</a>
+            <a href="../../../s2.html" class="nav-link ">📚 S2</a>
+        </div>
+        <div class="nav-right">
+            <button class="nav-action-btn zoom-btn" id="zoomOut" title="Dézoomer">A-</button>
+            <button class="nav-action-btn zoom-btn" id="zoomReset" title="Réinitialiser">100%</button>
+            <button class="nav-action-btn zoom-btn" id="zoomIn" title="Zoomer">A+</button>
+        </div>
+    </nav>
+    <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Haut de page">↑</button>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper"><input type="text" id="globalSearch" placeholder="🔍 Rechercher..." /></div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter" style="display:none"><option value="">Toutes les matières</option></select>
+                <select id="yearFilter" onchange="filterYear()"><option value="">Toutes les années</option><option value="2023-2024">2023-2024</option><option value="2022-2023">2022-2023</option></select>
+                <select id="typeFilter"><option value="">Tous les types</option><option value="pdf">PDF</option><option value="docx">Word</option></select>
+            </div>
+        </div>
+        
+        <!-- Filter Chips -->
+        <div class="filter-chips-container">
+            <div class="filter-label">Filtrer par catégorie :</div>
+            <div class="filter-chips">
+                <button class="filter-btn active-filter" onclick="filterCategory('')">Tout afficher</button>
+                <button class="filter-btn" data-category="📚-cours-magistraux" onclick="filterCategory('📚-cours-magistraux')">📚 Cours Magistraux</button><button class="filter-btn" data-category="🎓-examens,-ds--corrections" onclick="filterCategory('🎓-examens,-ds--corrections')">🎓 Examens, DS & Corrections</button><button class="filter-btn" data-category="💻-scripts--code" onclick="filterCategory('💻-scripts--code')">💻 Scripts & Code</button><button class="filter-btn" data-category="📊-données--tableaux" onclick="filterCategory('📊-données--tableaux')">📊 Données & Tableaux</button><button class="filter-btn" data-category="📂-documents-divers" onclick="filterCategory('📂-documents-divers')">📂 Documents Divers</button>
+            </div>
+        </div>
+
+        <!-- Table of Contents / Sommaire -->
+        <div class="toc-container">
+            <h3>📑 Sommaire</h3>
+            <div class="toc-grid">
+                
+            <a href="#section-📚-cours-magistraux" class="toc-item">
+                <span class="toc-name">📚 Cours Magistraux</span>
+                <span class="toc-count">1</span>
+            </a>
+            <a href="#section-🎓-examens,-ds--corrections" class="toc-item">
+                <span class="toc-name">🎓 Examens, DS & Corrections</span>
+                <span class="toc-count">4</span>
+            </a>
+            <a href="#section-💻-scripts--code" class="toc-item">
+                <span class="toc-name">💻 Scripts & Code</span>
+                <span class="toc-count">14</span>
+            </a>
+            <a href="#section-📊-données--tableaux" class="toc-item">
+                <span class="toc-name">📊 Données & Tableaux</span>
+                <span class="toc-count">1</span>
+            </a>
+            <a href="#section-📂-documents-divers" class="toc-item">
+                <span class="toc-name">📂 Documents Divers</span>
+                <span class="toc-count">13</span>
+            </a>
+            </div>
+        </div>
+
+        <div id="searchResults" class="search-results-panel"><div id="resultsContainer"></div></div>
+        <div class="breadcrumb"><a href="../../../index.html">🏠 S1</a><span>›</span><strong>Data exploration</strong></div>
+        <div class="page-title">
+            <div class="icon">📊</div>
+            <h1>Data exploration</h1>
+            <p>33 fichier(s) • 8 dossier(s)</p>
+            <a href="data_exploration_complet.zip" class="btn btn-download-all" download>📦 Tout télécharger (.zip)</a>
+        </div>
+        <div class="documents-section"><h2 id="section-📚-cours-magistraux" class="section-title">📚 Cours Magistraux</h2><div class="courses-grid">
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📝</span>
+                            <span class="badge-type badge-docx">DOCX</span>
+                            cours.docx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/S1/S1/Data%20exploration/cours.docx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div><h2 id="section-🎓-examens,-ds--corrections" class="section-title">🎓 Examens, DS & Corrections</h2><div class="courses-grid">
+                    <div class="document-item" data-year="2022-2023">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            Correction examen 2022-2023.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/Correction%20examen%202022-2023.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/Correction%20examen%202022-2023.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="2023-2024">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            Correction examen 2023-2024.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/Correction%20examen%202023-2024.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/Correction%20examen%202023-2024.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="2022-2023">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            Examen 2022-2023.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/Examen%202022-2023.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/Examen%202022-2023.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="2023-2024">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            Examen 2023-2024.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/Examen%202023-2024.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/Examen%202023-2024.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div><h2 id="section-💻-scripts--code" class="section-title">💻 Scripts & Code</h2><div class="courses-grid">
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            1.1-FrenchCities.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/1.1-FrenchCities.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            1.2-WineQuality.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/1.2-WineQuality.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            1.3-SalariesData.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/1.3-SalariesData.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            1.4-Matrices_et_vecteurs.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/1.4-Matrices_et_vecteurs.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            2.3-Quanti.Quanti.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/2.3-Quanti.Quanti.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            2.4-Quanti.Quanti.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/2.4-Quanti.Quanti.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            3.2-Quanti.Quali.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/3.2-Quanti.Quali.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            3.3-Quanti.Quali.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/3.3-Quanti.Quali.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            4.3-Quali.Quali.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/4.3-Quali.Quali.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            5.3-ACP.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/5.3-ACP.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            5.4-ACP.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/5.4-ACP.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            5.5-ACP.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/5.5-ACP.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            5.6-ACP.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/5.6-ACP.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-r">R</span>
+                            6.2-Clustering.R
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/6.2-Clustering.R" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div><h2 id="section-📊-données--tableaux" class="section-title">📊 Données & Tableaux</h2><div class="courses-grid">
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-xlsx">XLSX</span>
+                            4.2-Quali.Quali.xlsx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/4.2-Quali.Quali.xlsx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div><h2 id="section-📂-documents-divers" class="section-title">📂 Documents Divers</h2><div class="courses-grid">
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📎</span>
+                            <span class="badge-type badge-rhistory">RHISTORY</span>
+                            .Rhistory
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/.Rhistory" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            1.0-Analyse univariée.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/1.0-Analyse%20univari%C3%A9e.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/1.0-Analyse%20univari%C3%A9e.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            2.0-Quantitatif-Quantitatif.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/2.0-Quantitatif-Quantitatif.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/2.0-Quantitatif-Quantitatif.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            2.1,2-Quanti.Quanti.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/2.1%2C2-Quanti.Quanti.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/2.1%2C2-Quanti.Quanti.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            3.0-Quantitatif-Qualitatif.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/3.0-Quantitatif-Qualitatif.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/3.0-Quantitatif-Qualitatif.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            3.1-Quanti.Quali.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/3.1-Quanti.Quali.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/3.1-Quanti.Quali.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            3.4-Quanti.Quali.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/3.4-Quanti.Quali.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/3.4-Quanti.Quali.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            4.0-Qualitatif-Qualitatif.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/4.0-Qualitatif-Qualitatif.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/4.0-Qualitatif-Qualitatif.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            4.1-Quali.Quali.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/4.1-Quali.Quali.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/4.1-Quali.Quali.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            5.0-ACP.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/5.0-ACP.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/5.0-ACP.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            5.1,2,3-ACP.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/5.1%2C2%2C3-ACP.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/5.1%2C2%2C3-ACP.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            6.0-Clustering.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/6.0-Clustering.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/6.0-Clustering.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            6.1-Clustering.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/6.1-Clustering.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/TD/Data%20exploration/6.1-Clustering.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div></div>
+        <div class="folders-section"><h2 class="section-title">📁 Dossiers</h2><div class="courses-grid">
+                <div class="course-card-wrapper" style="position:relative;">
+                    <a href="chapitre-1---analyse-univariée/index.html" class="course-card-link">
+                        <div class="course-card">
+                            <span class="course-icon">📂</span>
+                            <h2>Chapitre 1 - Analyse Univariée</h2>
+                        </div>
+                    </a>
+                    
+                    <a href="chapitre-1---analyse-univariée/chapitre_1_-_analyse_univariée_complet.zip" class="btn-card-download" title="Télécharger le dossier Chapitre 1 - Analyse Univariée" download>
+                        ⬇️
+                    </a>
+                </div>
+                <div class="course-card-wrapper" style="position:relative;">
+                    <a href="chapitre-2---analyse-quanti-x-quanti/index.html" class="course-card-link">
+                        <div class="course-card">
+                            <span class="course-icon">📂</span>
+                            <h2>Chapitre 2 - Analyse Quanti x Quanti</h2>
+                        </div>
+                    </a>
+                    
+                    <a href="chapitre-2---analyse-quanti-x-quanti/chapitre_2_-_analyse_quanti_x_quanti_complet.zip" class="btn-card-download" title="Télécharger le dossier Chapitre 2 - Analyse Quanti x Quanti" download>
+                        ⬇️
+                    </a>
+                </div>
+                <div class="course-card-wrapper" style="position:relative;">
+                    <a href="chapitre-3---analyse-quanti-x-quali/index.html" class="course-card-link">
+                        <div class="course-card">
+                            <span class="course-icon">📂</span>
+                            <h2>Chapitre 3 - Analyse Quanti x Quali</h2>
+                        </div>
+                    </a>
+                    
+                    <a href="chapitre-3---analyse-quanti-x-quali/chapitre_3_-_analyse_quanti_x_quali_complet.zip" class="btn-card-download" title="Télécharger le dossier Chapitre 3 - Analyse Quanti x Quali" download>
+                        ⬇️
+                    </a>
+                </div>
+                <div class="course-card-wrapper" style="position:relative;">
+                    <a href="chapitre-4---analyse-quali-x-quali/index.html" class="course-card-link">
+                        <div class="course-card">
+                            <span class="course-icon">📂</span>
+                            <h2>Chapitre 4 - Analyse Quali x Quali</h2>
+                        </div>
+                    </a>
+                    
+                    <a href="chapitre-4---analyse-quali-x-quali/chapitre_4_-_analyse_quali_x_quali_complet.zip" class="btn-card-download" title="Télécharger le dossier Chapitre 4 - Analyse Quali x Quali" download>
+                        ⬇️
+                    </a>
+                </div>
+                <div class="course-card-wrapper" style="position:relative;">
+                    <a href="chapitre-5---acp/index.html" class="course-card-link">
+                        <div class="course-card">
+                            <span class="course-icon">📂</span>
+                            <h2>Chapitre 5 - ACP</h2>
+                        </div>
+                    </a>
+                    
+                    <a href="chapitre-5---acp/chapitre_5_-_acp_complet.zip" class="btn-card-download" title="Télécharger le dossier Chapitre 5 - ACP" download>
+                        ⬇️
+                    </a>
+                </div>
+                <div class="course-card-wrapper" style="position:relative;">
+                    <a href="dataset/index.html" class="course-card-link">
+                        <div class="course-card">
+                            <span class="course-icon">📂</span>
+                            <h2>Dataset</h2>
+                        </div>
+                    </a>
+                    
+                    <a href="dataset/dataset_complet.zip" class="btn-card-download" title="Télécharger le dossier Dataset" download>
+                        ⬇️
+                    </a>
+                </div>
+                <div class="course-card-wrapper" style="position:relative;">
+                    <a href="jeu-des-données/index.html" class="course-card-link">
+                        <div class="course-card">
+                            <span class="course-icon">📂</span>
+                            <h2>Jeu des données</h2>
+                        </div>
+                    </a>
+                    
+                    <a href="jeu-des-données/jeu_des_données_complet.zip" class="btn-card-download" title="Télécharger le dossier Jeu des données" download>
+                        ⬇️
+                    </a>
+                </div>
+                <div class="course-card-wrapper" style="position:relative;">
+                    <a href="sujets/index.html" class="course-card-link">
+                        <div class="course-card">
+                            <span class="course-icon">📂</span>
+                            <h2>Sujets</h2>
+                        </div>
+                    </a>
+                    
+                    <a href="sujets/sujets_complet.zip" class="btn-card-download" title="Télécharger le dossier Sujets" download>
+                        ⬇️
+                    </a>
+                </div></div></div>
+    </main>
+    <footer><div class="container"><p>&copy; 2024 ING1 - S1 • Design Premium</p></div></footer>
+    <script src="../../../navigation.js"></script>
+</body>
+</html>

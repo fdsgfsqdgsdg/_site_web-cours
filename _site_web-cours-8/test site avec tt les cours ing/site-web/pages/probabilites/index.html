@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probabilités et simulation - ING1 S1</title>
+    <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📚 ING1 - Semestre 1</h1>
+            <p>Probabilités et simulation</p>
+        </div>
+    </header>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="globalSearch" placeholder="🔍 Rechercher un document, une matière, un TD..." />
+                <label class="search-content-label">
+                    <input type="checkbox" id="searchInContent" />
+                    Rechercher dans le contenu des fichiers
+                </label>
+            </div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter">
+                    <option value="">Toutes les matières</option>
+                    <option value="Anglais">Anglais</option>
+                    <option value="BDD">Base de Données</option>
+                    <option value="CEF">CEF</option>
+                    <option value="Data Exploration">Data Exploration</option>
+                    <option value="Éthique">Éthique</option>
+                    <option value="Gestion">Gestion</option>
+                    <option value="Probabilités">Probabilités</option>
+                    <option value="Système">Système</option>
+                    <option value="Langages">Langages</option>
+                </select>
+                <select id="typeFilter">
+                    <option value="">Tous les types</option>
+                    <option value="pdf">PDF</option>
+                    <option value="docx">Word</option>
+                    <option value="pptx">PowerPoint</option>
+                    <option value="txt">Texte</option>
+                    <option value="sql">SQL</option>
+                    <option value="jpg">Image</option>
+                    <option value="png">Image</option>
+                </select>
+                <select id="folderFilter">
+                    <option value="">Tous les dossiers</option>
+                    <option value="TD">TD</option>
+                    <option value="CM">CM</option>
+                    <option value="Cours">Cours</option>
+                    <option value="Examens">Examens</option>
+                </select>
+            </div>
+        </div>
+        <div id="searchResults" class="search-results-panel">
+            <div id="resultsContainer"></div>
+        </div>
+        <div class="breadcrumb"><a href="../../index.html">🏠 Accueil</a><span>›</span><strong>Probabilités et simulation</strong></div>
+        <div class="page-title">
+            <div class="icon">📄</div>
+            <h1>Probabilités et simulation</h1>
+            <p>6 fichier(s) • 2 dossier(s)</p>
+        </div>
+        <div class="folders-section"><h2 class="section-title">📁 Dossiers</h2><div class="courses-grid">
+                <a href="cm.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>CM</h2>
+                    </div>
+                </a>
+                <a href="td.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TD</h2>
+                    </div>
+                </a></div></div>
+        <div class="documents-section"><h2 class="section-title">📄 Fichiers</h2><div class="courses-grid">
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Ch1.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/Probabilités et simulation/Ch1.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/Probabilités et simulation/Ch1.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Ch2 - Suite de variables aléatoires réelles convergentes .pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/Probabilités et simulation/Ch2 - Suite de variables aléatoires réelles convergentes .pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/Probabilités et simulation/Ch2 - Suite de variables aléatoires réelles convergentes .pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Examen_ProbabilitesEtSimulation_Ing1-GIA_2022-01-xx.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/Probabilités et simulation/Examen_ProbabilitesEtSimulation_Ing1-GIA_2022-01-xx.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/Probabilités et simulation/Examen_ProbabilitesEtSimulation_Ing1-GIA_2022-01-xx.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Examen_ProbabilitesEtSimulation_Ing1-GMA_2023-01-xx.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/Probabilités et simulation/Examen_ProbabilitesEtSimulation_Ing1-GMA_2023-01-xx.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/Probabilités et simulation/Examen_ProbabilitesEtSimulation_Ing1-GMA_2023-01-xx.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>Standard_Normale_Distribution_Table.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/Probabilités et simulation/Standard_Normale_Distribution_Table.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/Probabilités et simulation/Standard_Normale_Distribution_Table.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>TD1.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/Probabilités et simulation/TD1.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/Probabilités et simulation/TD1.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div></div></div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ING1 - Semestre 1</p>
+        </div>
+    </footer>
+    <script src="../../search.js"></script>
+</body>
+</html>

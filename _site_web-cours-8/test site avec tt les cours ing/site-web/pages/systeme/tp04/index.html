@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP04 - ING1 S1</title>
+    <link rel="stylesheet" href="../../../style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>📚 ING1 - Semestre 1</h1>
+            <p>TP04</p>
+        </div>
+    </header>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="globalSearch" placeholder="🔍 Rechercher un document, une matière, un TD..." />
+                <label class="search-content-label">
+                    <input type="checkbox" id="searchInContent" />
+                    Rechercher dans le contenu des fichiers
+                </label>
+            </div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter">
+                    <option value="">Toutes les matières</option>
+                    <option value="Anglais">Anglais</option>
+                    <option value="BDD">Base de Données</option>
+                    <option value="CEF">CEF</option>
+                    <option value="Data Exploration">Data Exploration</option>
+                    <option value="Éthique">Éthique</option>
+                    <option value="Gestion">Gestion</option>
+                    <option value="Probabilités">Probabilités</option>
+                    <option value="Système">Système</option>
+                    <option value="Langages">Langages</option>
+                </select>
+                <select id="typeFilter">
+                    <option value="">Tous les types</option>
+                    <option value="pdf">PDF</option>
+                    <option value="docx">Word</option>
+                    <option value="pptx">PowerPoint</option>
+                    <option value="txt">Texte</option>
+                    <option value="sql">SQL</option>
+                    <option value="jpg">Image</option>
+                    <option value="png">Image</option>
+                </select>
+                <select id="folderFilter">
+                    <option value="">Tous les dossiers</option>
+                    <option value="TD">TD</option>
+                    <option value="CM">CM</option>
+                    <option value="Cours">Cours</option>
+                    <option value="Examens">Examens</option>
+                </select>
+            </div>
+        </div>
+        <div id="searchResults" class="search-results-panel">
+            <div id="resultsContainer"></div>
+        </div>
+        <div class="breadcrumb"><a href="../../../index.html">🏠 Accueil</a><span>›</span><a href="../../index.html">Système d'exploitation</a><span>›</span><a href="../index.html">TP</a><span>›</span><strong>TP04</strong></div>
+        <div class="page-title">
+            <div class="icon">📄</div>
+            <h1>TP04</h1>
+            <p>4 fichier(s) • 4 dossier(s)</p>
+        </div>
+        <div class="folders-section"><h2 class="section-title">📁 Dossiers</h2><div class="courses-grid">
+                <a href="supports-tp.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>Supports TP</h2>
+                    </div>
+                </a>
+                <a href="tp04_partie1.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TP04_partie1</h2>
+                    </div>
+                </a>
+                <a href="tp04_partie2.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TP04_partie2</h2>
+                    </div>
+                </a>
+                <a href="tp04_partie3.html" class="course-card-link">
+                    <div class="course-card">
+                        <span class="course-icon">📂</span>
+                        <h2>TP04_partie3</h2>
+                    </div>
+                </a></div></div>
+        <div class="documents-section"><h2 class="section-title">📄 Fichiers</h2><div class="courses-grid">
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📃</span>Connexion internet.txt</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/Système d'exploitation/TP/TP04/Connexion internet.txt" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/Système d'exploitation/TP/TP04/Connexion internet.txt" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>TP_SE_InstLogiciel_Complements.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/Système d'exploitation/TP/TP04/TP_SE_InstLogiciel_Complements.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/Système d'exploitation/TP/TP04/TP_SE_InstLogiciel_Complements.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>TP_SE_InstLogiciel_VB.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/Système d'exploitation/TP/TP04/TP_SE_InstLogiciel_VB.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/Système d'exploitation/TP/TP04/TP_SE_InstLogiciel_VB.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div>
+                <div class="document-item">
+                    <span class="document-name"><span class="file-icon">📄</span>TP_SE_InstallationSE.pdf</span>
+                    <div class="document-actions">
+                        <a href="../../../S1/S1/Système d'exploitation/TP/TP04/TP_SE_InstallationSE.pdf" class="btn btn-view" target="_blank">Voir</a>
+                        <a href="../../../S1/S1/Système d'exploitation/TP/TP04/TP_SE_InstallationSE.pdf" class="btn btn-download" download>Télécharger</a>
+                    </div>
+                </div></div></div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ING1 - Semestre 1</p>
+        </div>
+    </footer>
+    <script src="../../../search.js"></script>
+</body>
+</html>

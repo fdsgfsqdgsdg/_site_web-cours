@@ -1,0 +1,114 @@
+graph = [[0,1,0,0],[1,0,2,1],[0,2,0,1],[0,1,1,1]]
+listNodes = [0,1,2,3] #[1,2,3,4]
+
+def show_graph(graph):
+    print("\nGraph :")
+    for i in graph:
+        print(i)
+    p=0
+    show_transitions(graph,p)
+
+    nbNodes=len(graph)
+    print("\nNombre de noeuds : ",nbNodes)
+    Arretes=nbAretes(graph)
+    print("Nombre d'arretes : ",Arretes)
+    print("Graph simple ? ", isSimple(graph))
+    
+def show_transitions(graph, show): #si print vaut 0 on print les transitions et si 1 alors on retourne une liste
+    liste_transitions = []
+    print("\nTransitions : ")
+    for i in range(len(graph)):
+        for j in range(i, len(graph[i])):
+            for z in range(graph[i][j]):
+                if show == 0:
+                    print("v",i+1,"->","v",j+1)
+                if show == 1:
+                    if (graph[i][j] != 0 ) and (("v"+str(j+1),"v"+str(i+1)) not in liste_transitions):
+                        arrete = ("v"+str(i+1),"v"+str(j+1))
+                        liste_transitions.append(arrete)
+    return liste_transitions
+
+def nbAretes(graph): 
+    nb=0
+    for i in range(len(graph)):
+        for j in range(i, len(graph[i])):
+            if i!=j:
+                nb=nb+graph[i][j]
+            else:
+                nb=nb+graph[i][j]
+    return (nb)
+
+
+def isSimple(graph): #on suppose que la matrice du graph est symétrique et adjacente
+    for i in range(len(graph)):
+        for j in range(i, len(graph[i])):
+            if ((graph[i][i] != 0) or (graph[i][j] > 1)):
+                return False
+    return True
+
+
+def makeSimple(graph):
+    graph2 = [i[:] for i in graph]
+    for i in range(len(graph2)):
+        for j in range(i, len(graph2)):
+            if i == j:
+                graph2[i][j]=0
+            if graph2[i][j] > 1:
+                graph2[i][j] = 1
+                graph2[j][i] = 1
+    return graph2
+
+
+def isChain(graph, chaine): #permett de vérifier si une liste de noeuds d’un graphe forment une chaine du graphe
+    for i in range(len(chaine) - 1):
+        if (graph[chaine[i]][chaine[i+1]] == 0): #if (graph[chaine[i]-1][chaine[i+1]-1] == 0): si on veut commercer la chaine par 1
+            return False
+    return True
+
+
+def isChainSimple(graph, chaine): #correction de la prof, ne marche pas
+    if (not isSimple(chaine)):
+        return False
+    l = []
+    for i in range(len(chaine) - 1):
+        v1,v2=chaine[i],chaine[i+1]
+        if (v1,v2) in l[i]:
+            return False
+        l.append((v1,v2))
+        l.append((v2,v1))
+    return True
+
+
+def isChainElementary(graph, chaine):
+    if len(chaine) < 2: # Vérifier si le nombre de noeuds dans la liste est supérieur à 1
+        return False
+    for i in range(len(chaine) - 1): # Vérifier si chaque paire de noeuds consécutifs dans la liste est reliée par une arête dans le graphe
+        if chaine[i + 1] not in graph.get(chaine[i], []):
+            return False
+    if len(set(chaine)) != len(chaine): # Vérifier si chaque noeud apparaît au plus une fois dans la liste
+        return False
+    return True
+
+
+
+def isFull(graph): #vérifie que le graphe est complet : n(n-1)/2 arêtes
+    nbNodes=len(graph)
+    Aretes=nbAretes(graph)
+    nbAreteCalcul = (nbNodes * (nbNodes - 1))/2
+    if Aretes == nbAreteCalcul:
+        return True
+    return False
+
+
+
+
+show_graph(graph)
+graph2=makeSimple(graph)
+show_graph(graph2)
+
+print("Est une chaîne ? ", isChain(graph2, listNodes))
+print ("Est complet ? ", isFull(graph2))
+
+
+
+

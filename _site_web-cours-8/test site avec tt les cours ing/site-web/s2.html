@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ING1 - Semestre 2</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="document-upload/upload-modal.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        // Gestion du thème (Dark/Light)
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            document.cookie = "theme=" + next + "; path=/; max-age=31536000"; // 1 year persistence
+            updateIcon(next);
+        }
+
+        function updateIcon(theme) {
+            const btn = document.getElementById('themeToggle');
+            if (btn) btn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Init - Immediate application to prevent flash
+        let saved = localStorage.getItem('theme');
+        if (!saved) {
+            const match = document.cookie.match(new RegExp('(^| )theme=([^;]+)'));
+            if (match) saved = match[2];
+        }
+        if (!saved) saved = 'light';
+
+        document.documentElement.setAttribute('data-theme', saved);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateIcon(saved);
+        });
+    </script>
+    <script>
+        window.SITE_ROOT = "";
+    </script>
+    <script src="files.js"></script>
+    <script src="search.js" defer></script>
+    <script src="document-upload/content-extractor.js"></script>
+    <script src="document-upload/classifier.js"></script>
+    <script src="document-upload/upload-manager.js"></script>
+    <script src="document-upload/animations.js"></script>
+    <script src="document-upload/advanced-features.js"></script>
+    <link rel="icon"
+        href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">📚</text></svg>'>
+</head>
+
+<body>
+    <header>
+        <div class="header-top-row">
+            <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">🌙</button>
+        </div>
+        <div class="container">
+            <a href="s2.html" style="text-decoration: none; color: inherit; display: block;">
+                <h1>📚 ING1 - Semestre 2</h1>
+                <p>Documents et cours du second semestre</p>
+            </a>
+        </div>
+    </header>
+    <nav class="semester-nav">
+        <div class="nav-left">
+            <button class="nav-action-btn" onclick="window.history.back()" title="Page précédente">← Retour</button>
+            <button class="nav-action-btn" onclick="window.history.forward()" title="Page suivante">Suivant →</button>
+        </div>
+        <div class="nav-center">
+            <a href="index.html" class="nav-link home" title="Accueil S1">🏠 Accueil S1</a>
+            <a href="index.html" class="nav-link">📚 Semestre 1</a>
+            <a href="s2.html" class="nav-link active">📚 Semestre 2</a>
+            <button class="nav-link upload-btn" onclick="uploadManager.openModal()" title="Ajouter des documents">📤 Ajouter Documents</button>
+        </div>
+        <div class="nav-right">
+            <button class="nav-action-btn zoom-btn" id="zoomOut" title="Dézoomer">A-</button>
+            <button class="nav-action-btn zoom-btn" id="zoomReset" title="Réinitialiser">100%</button>
+            <button class="nav-action-btn zoom-btn" id="zoomIn" title="Zoomer">A+</button>
+        </div>
+    </nav>
+    <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+        title="Haut de page">↑</button>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="globalSearch" placeholder="🔍 Rechercher un cours dans le S2..." />
+            </div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter">
+                    <option value="">Toutes les matières</option>
+                </select>
+                <select id="typeFilter">
+                    <option value="">Tous les types</option>
+                    <option value="pdf">PDF</option>
+                    <option value="docx">Word</option>
+                    <option value="pptx">PowerPoint</option>
+                    <option value="xlsx">Excel</option>
+                </select>
+            </div>
+        </div>
+        <div id="searchResults" class="search-results-panel">
+            <div id="resultsContainer"></div>
+        </div>
+
+        <div id="mainContent">
+            <div class="section-title">Matières du Semestre</div>
+            <div class="courses-grid">
+                <a href="pages/s2/ado/index.html" class="course-card-link">
+                    <div class="course-card"><span class="course-icon">🖥️</span>
+                        <h2>ADO</h2>
+                    </div>
+                </a>
+                <a href="pages/s2/algo/index.html" class="course-card-link">
+                    <div class="course-card"><span class="course-icon">🧮</span>
+                        <h2>Algo Avancé</h2>
+                    </div>
+                </a>
+                <a href="pages/s2/creativite/index.html" class="course-card-link">
+                    <div class="course-card"><span class="course-icon">💡</span>
+                        <h2>Créativité</h2>
+                    </div>
+                </a>
+                <a href="pages/s2/devweb/index.html" class="course-card-link">
+                    <div class="course-card"><span class="course-icon">🌐</span>
+                        <h2>DevWeb</h2>
+                    </div>
+                </a>
+                <a href="pages/s2/english/index.html" class="course-card-link">
+                    <div class="course-card"><span class="course-icon">🇬🇧</span>
+                        <h2>English</h2>
+                    </div>
+                </a>
+                <a href="pages/s2/ethique/index.html" class="course-card-link">
+                    <div class="course-card"><span class="course-icon">⚖️</span>
+                        <h2>Éthique</h2>
+                    </div>
+                </a>
+                <a href="pages/s2/gestion/index.html" class="course-card-link">
+                    <div class="course-card"><span class="course-icon">💼</span>
+                        <h2>Gestion</h2>
+                    </div>
+                </a>
+                <a href="pages/s2/interaction/index.html" class="course-card-link">
+                    <div class="course-card"><span class="course-icon">🤝</span>
+                        <h2>Interaction</h2>
+                    </div>
+                </a>
+                <a href="pages/s2/java/index.html" class="course-card-link">
+                    <div class="course-card"><span class="course-icon">☕</span>
+                        <h2>Java</h2>
+                    </div>
+                </a>
+                <a href="pages/s2/optimisation/index.html" class="course-card-link">
+                    <div class="course-card"><span class="course-icon">📈</span>
+                        <h2>Optimisation</h2>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 ING1 • Design Premium</p>
+        </div>
+    </footer>
+    <script src="navigation.js"></script>
+</body>
+
+</html>

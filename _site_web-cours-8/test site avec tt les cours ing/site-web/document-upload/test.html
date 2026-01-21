@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Système d'Upload</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        .test-section h2 {
+            color: #333;
+            margin-top: 0;
+        }
+        .test-files {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .test-file {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        .test-file-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .test-file-expected {
+            font-size: 0.9em;
+            color: #4CAF50;
+        }
+        .btn-test {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-test:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .info-box strong {
+            color: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Test du Système d'Upload et Classification</h1>
+        <p class="subtitle">Testez l'algorithme de classification automatique avec différents noms de fichiers</p>
+
+        <div class="info-box">
+            <strong>ℹ️ Instructions :</strong> Cliquez sur le bouton ci-dessous pour ouvrir la modale d'upload. 
+            Vous pouvez ensuite tester avec vos propres fichiers ou utiliser les exemples ci-dessous pour voir comment l'algorithme classifie automatiquement les documents.
+        </div>
+
+        <button class="btn-test" onclick="alert('Intégrez ce test dans votre site principal pour tester le système !')">
+            📤 Ouvrir le Système d'Upload
+        </button>
+
+        <div class="test-section">
+            <h2>📋 Exemples de Classification Automatique</h2>
+            <p>Voici comment l'algorithme classiferait différents types de fichiers :</p>
+            
+            <div class="test-files">
+                <div class="test-file">
+                    <div class="test-file-name">📕 cours_sql_bdd.pdf</div>
+                    <div class="test-file-expected">→ Base de Données (95%)</div>
+                </div>
+                <div class="test-file">
+                    <div class="test-file-name">📘 tp_python_pandas.py</div>
+                    <div class="test-file-expected">→ Python (90%)</div>
+                </div>
+                <div class="test-file">
+                    <div class="test-file-name">📙 examen_probabilites_2024.pdf</div>
+                    <div class="test-file-expected">→ Probabilités (85%)</div>
+                </div>
+                <div class="test-file">
+                    <div class="test-file-name">📗 projet_java_poo.zip</div>
+                    <div class="test-file-expected">→ Java (88%)</div>
+                </div>
+                <div class="test-file">
+                    <div class="test-file-name">📄 td_graphe_dijkstra.pdf</div>
+                    <div class="test-file-expected">→ Algorithmique (92%)</div>
+                </div>
+                <div class="test-file">
+                    <div class="test-file-name">📕 linux_shell_bash.pdf</div>
+                    <div class="test-file-expected">→ Système (88%)</div>
+                </div>
+                <div class="test-file">
+                    <div class="test-file-name">📘 html_css_javascript.zip</div>
+                    <div class="test-file-expected">→ Développement Web (85%)</div>
+                </div>
+                <div class="test-file">
+                    <div class="test-file-name">📙 english_vocabulary.docx</div>
+                    <div class="test-file-expected">→ Anglais (80%)</div>
+                </div>
+                <div class="test-file">
+                    <div class="test-file-name">📗 analyse_statistique_acp.pdf</div>
+                    <div class="test-file-expected">→ Data Exploration (90%)</div>
+                </div>
+                <div class="test-file">
+                    <div class="test-file-name">📄 cours.pdf</div>
+                    <div class="test-file-expected">→ Non classifié (0%)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Matières Supportées</h2>
+            <p><strong>Semestre 1 :</strong></p>
+            <ul>
+                <li>🇬🇧 Anglais</li>
+                <li>🗄️ Base de Données</li>
+                <li>🎤 CEF</li>
+                <li>📊 Data Exploration</li>
+                <li>⚖️ Éthique</li>
+                <li>💼 Gestion</li>
+                <li>📜 Histoire & Design</li>
+                <li>🎲 Probabilités</li>
+                <li>💻 Système</li>
+                <li>🔤 Langages</li>
+                <li>🐍 Python</li>
+            </ul>
+            <p><strong>Semestre 2 :</strong></p>
+            <ul>
+                <li>🖥️ Architecture des Ordinateurs (ADO)</li>
+                <li>🧮 Algorithmique</li>
+                <li>💡 Créativité</li>
+                <li>🌐 Développement Web</li>
+                <li>🇬🇧 English</li>
+                <li>🖱️ Interaction</li>
+                <li>☕ Java</li>
+                <li>📈 Optimisation</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🧠 Comment ça marche ?</h2>
+            <ol>
+                <li><strong>Analyse du nom :</strong> L'algorithme extrait et normalise le nom du fichier</li>
+                <li><strong>Recherche de mots-clés :</strong> Compare avec une base de mots-clés pour chaque matière</li>
+                <li><strong>Calcul du score :</strong> Attribue des points selon la pertinence des correspondances</li>
+                <li><strong>Niveau de confiance :</strong> Convertit le score en pourcentage de confiance</li>
+                <li><strong>Suggestion :</strong> Propose la matière avec le meilleur score</li>
+            </ol>
+        </div>
+
+        <div class="info-box" style="background: #fff3cd; border-color: #ffc107;">
+            <strong>💡 Astuce :</strong> Pour une meilleure classification, nommez vos fichiers avec des mots-clés pertinents 
+            (ex: "cours_sql_bdd.pdf" plutôt que "document1.pdf")
+        </div>
+    </div>
+
+    <script>
+        // Script de test pour la console
+        console.log('%c🧪 Test du Système d\'Upload', 'color: #667eea; font-size: 20px; font-weight: bold;');
+        console.log('Pour tester l\'algorithme, ouvrez la console et utilisez :');
+        console.log('');
+        console.log('const classifier = new DocumentClassifier();');
+        console.log('classifier.classify("cours_sql_bdd.pdf");');
+        console.log('');
+        console.log('Exemples de tests :');
+        
+        const testFiles = [
+            'cours_sql_bdd.pdf',
+            'tp_python_pandas.py',
+            'examen_probabilites.pdf',
+            'projet_java_poo.zip',
+            'td_graphe_dijkstra.pdf',
+            'cours.pdf'
+        ];
+        
+        console.table(testFiles.map(file => ({
+            'Fichier': file,
+            'Test': `classifier.classify("${file}")`
+        })));
+    </script>
+</body>
+</html>

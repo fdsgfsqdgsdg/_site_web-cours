@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éthique - ING1 S1</title>
+    <link rel="stylesheet" href="../../../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            document.cookie = "theme=" + next + "; path=/; max-age=31536000"; // 1 year persistence
+            updateIcon(next);
+        }
+        function updateIcon(theme) {
+            const btn = document.getElementById('themeToggle');
+            if(btn) btn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+        }
+        
+        // Immediate application to prevent flash
+        let saved = localStorage.getItem('theme');
+        if (!saved) {
+            const match = document.cookie.match(new RegExp('(^| )theme=([^;]+)'));
+            if (match) saved = match[2];
+        }
+        if (!saved) saved = 'light';
+        
+        document.documentElement.setAttribute('data-theme', saved);
+        document.addEventListener('DOMContentLoaded', () => { updateIcon(saved); });
+
+        function applyFilters() {
+            // Get States
+            const activeCategoryBtn = document.querySelector('.filter-btn.active-filter');
+            const categoryId = activeCategoryBtn ? activeCategoryBtn.dataset.category : '';
+            
+            const yearSelect = document.getElementById('yearFilter');
+            const yearVal = yearSelect ? yearSelect.value : '';
+            
+            // Apply to all items
+            const sections = document.querySelectorAll('.documents-section .section-title');
+            
+            sections.forEach(section => {
+                const grid = section.nextElementSibling;
+                const sectionId = section.id.replace('section-', '');
+                
+                // 1. Check Category Visibility
+                const isCatMatch = !categoryId || sectionId === categoryId;
+                
+                // 2. Check Items inside this Category
+                let visibleCount = 0;
+                if (grid) {
+                    const items = grid.querySelectorAll('.document-item');
+                    items.forEach(item => {
+                        const itemYear = item.dataset.year || '';
+                        const isYearMatch = !yearVal || itemYear === yearVal;
+                        
+                        if (isYearMatch && isCatMatch) {
+                            item.style.display = '';
+                            visibleCount++;
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                }
+                
+                // 3. Toggle Section Visibility based on children
+                // Note: The original logic hid sections based on Category.
+                // Now we hide sections if Category doesn't match OR if no children are visible (due to Year)
+                
+                if (isCatMatch && visibleCount > 0) {
+                     section.style.display = '';
+                     if(grid) grid.style.display = '';
+                } else {
+                     section.style.display = 'none';
+                     if(grid) grid.style.display = 'none';
+                }
+            });
+        }
+
+        function filterCategory(categoryId) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const activeClass = 'active-filter';
+
+            // Reset buttons
+            buttons.forEach(btn => {
+                if (btn.dataset.category === categoryId) {
+                    btn.classList.add(activeClass);
+                } else {
+                    btn.classList.remove(activeClass);
+                }
+            });
+            
+            applyFilters();
+        }
+        
+        function filterYear() {
+            applyFilters();
+        }
+    </script>
+    <script>window.SITE_ROOT = "../../../";</script>
+    <script src="../../../files.js"></script>
+    <script src="../../../search.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-top-row">
+            <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Changer de thème">🌙</button>
+        </div>
+        <div class="container">
+            <a href="../../../index.html" style="text-decoration: none; color: inherit; display: block;">
+                <h1>📚 ING1 - S1</h1>
+                <p>Éthique</p>
+            </a>
+        </div>
+    </header>
+    <nav class="semester-nav">
+        <div class="nav-left">
+            <button class="nav-action-btn" onclick="window.history.back()" title="Page précédente">← Retour</button>
+            <button class="nav-action-btn" onclick="window.history.forward()" title="Page suivante">Suivant →</button>
+        </div>
+        <div class="nav-center">
+            <a href="../../../index.html" class="nav-link home" title="Accueil S1">🏠 Accueil</a>
+            <a href="../../../index.html" class="nav-link active">📚 S1</a>
+            <a href="../../../s2.html" class="nav-link ">📚 S2</a>
+        </div>
+        <div class="nav-right">
+            <button class="nav-action-btn zoom-btn" id="zoomOut" title="Dézoomer">A-</button>
+            <button class="nav-action-btn zoom-btn" id="zoomReset" title="Réinitialiser">100%</button>
+            <button class="nav-action-btn zoom-btn" id="zoomIn" title="Zoomer">A+</button>
+        </div>
+    </nav>
+    <button class="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Haut de page">↑</button>
+    <main class="container">
+        <div class="search-bar-container">
+            <div class="search-input-wrapper"><input type="text" id="globalSearch" placeholder="🔍 Rechercher..." /></div>
+            <div class="filters-wrapper">
+                <select id="categoryFilter" style="display:none"><option value="">Toutes les matières</option></select>
+                <select id="yearFilter" onchange="filterYear()"><option value="">Toutes les années</option><option value="2023">2023</option></select>
+                <select id="typeFilter"><option value="">Tous les types</option><option value="pdf">PDF</option><option value="docx">Word</option></select>
+            </div>
+        </div>
+        
+        <!-- Filter Chips -->
+        <div class="filter-chips-container">
+            <div class="filter-label">Filtrer par catégorie :</div>
+            <div class="filter-chips">
+                <button class="filter-btn active-filter" onclick="filterCategory('')">Tout afficher</button>
+                <button class="filter-btn" data-category="📚-cours-magistraux" onclick="filterCategory('📚-cours-magistraux')">📚 Cours Magistraux</button><button class="filter-btn" data-category="📢-présentations" onclick="filterCategory('📢-présentations')">📢 Présentations</button><button class="filter-btn" data-category="📂-documents-divers" onclick="filterCategory('📂-documents-divers')">📂 Documents Divers</button>
+            </div>
+        </div>
+
+        <!-- Table of Contents / Sommaire -->
+        <div class="toc-container">
+            <h3>📑 Sommaire</h3>
+            <div class="toc-grid">
+                
+            <a href="#section-📚-cours-magistraux" class="toc-item">
+                <span class="toc-name">📚 Cours Magistraux</span>
+                <span class="toc-count">12</span>
+            </a>
+            <a href="#section-📢-présentations" class="toc-item">
+                <span class="toc-name">📢 Présentations</span>
+                <span class="toc-count">8</span>
+            </a>
+            <a href="#section-📂-documents-divers" class="toc-item">
+                <span class="toc-name">📂 Documents Divers</span>
+                <span class="toc-count">3</span>
+            </a>
+            </div>
+        </div>
+
+        <div id="searchResults" class="search-results-panel"><div id="resultsContainer"></div></div>
+        <div class="breadcrumb"><a href="../../../index.html">🏠 S1</a><span>›</span><strong>Éthique</strong></div>
+        <div class="page-title">
+            <div class="icon">⚖️</div>
+            <h1>Éthique</h1>
+            <p>23 fichier(s) • 0 dossier(s)</p>
+            <a href="éthique_complet.zip" class="btn btn-download-all" download>📦 Tout télécharger (.zip)</a>
+        </div>
+        <div class="documents-section"><h2 id="section-📚-cours-magistraux" class="section-title">📚 Cours Magistraux</h2><div class="courses-grid">
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            1-Introduction aux enjeux de l’éthique des sciences.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/1-Introduction%20aux%20enjeux%20de%20l%E2%80%99%C3%A9thique%20des%20sciences.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            CM éthique et sciences préing 2.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/CM%20%C3%A9thique%20et%20sciences%20pr%C3%A9ing%202.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            EST - CM1 - Introduction à l'éthique des sciences et des techniques.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/EST%20-%20CM1%20-%20Introduction%20%C3%A0%20l%27%C3%A9thique%20des%20sciences%20et%20des%20techniques.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/EST%20-%20CM1%20-%20Introduction%20%C3%A0%20l%27%C3%A9thique%20des%20sciences%20et%20des%20techniques.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            EST - CM2 - L'idée de progrès.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/EST%20-%20CM2%20-%20L%27id%C3%A9e%20de%20progr%C3%A8s.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/EST%20-%20CM2%20-%20L%27id%C3%A9e%20de%20progr%C3%A8s.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="2023">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            EST - CM3 - L'éthique environnementale - 10-10-2023.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/EST%20-%20CM3%20-%20L%27%C3%A9thique%20environnementale%20-%2010-10-2023.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="2023">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            EST - CM4 - Enjeux éthico-politiques du numérique - 03-11-2023.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/EST%20-%20CM4%20-%20Enjeux%20%C3%A9thico-politiques%20du%20num%C3%A9rique%20-%2003-11-2023.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="2023">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            EST - CM4-5 - Enjeux éthico-politiques du numérique - 10-11-2023.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/EST%20-%20CM4-5%20-%20Enjeux%20%C3%A9thico-politiques%20du%20num%C3%A9rique%20-%2010-11-2023.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="2023">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            EST - S4 - Introduction à la bioéthique - 01-12-2023.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/EST%20-%20S4%20-%20Introduction%20%C3%A0%20la%20bio%C3%A9thique%20-%2001-12-2023.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            QCM éthique et sciences préing 2.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/QCM%20%C3%A9thique%20et%20sciences%20pr%C3%A9ing%202.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            1-Introduction aux enjeux de l’éthique des sciences.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/%C3%89thique%20et%20sciences/1-Introduction%20aux%20enjeux%20de%20l%E2%80%99%C3%A9thique%20des%20sciences.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            CM éthique et sciences préing 2.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/%C3%89thique%20et%20sciences/CM%20%C3%A9thique%20et%20sciences%20pr%C3%A9ing%202.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            QCM éthique et sciences préing 2.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/%C3%89thique%20et%20sciences/QCM%20%C3%A9thique%20et%20sciences%20pr%C3%A9ing%202.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div><h2 id="section-📢-présentations" class="section-title">📢 Présentations</h2><div class="courses-grid">
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            2-Les scientifiques au service de la guerre.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/2-Les%20scientifiques%20au%20service%20de%20la%20guerre.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            3-L’expérience de Milgram.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/3-L%E2%80%99exp%C3%A9rience%20de%20Milgram.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            4-L’éthique de la science et de la technologie.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/4-L%E2%80%99%C3%A9thique%20de%20la%20science%20et%20de%20la%20technologie.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            5-Suite de l_éthique de la science et de la technologie.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/5-Suite%20de%20l_%C3%A9thique%20de%20la%20science%20et%20de%20la%20technologie.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            2-Les scientifiques au service de la guerre.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/%C3%89thique%20et%20sciences/2-Les%20scientifiques%20au%20service%20de%20la%20guerre.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            3-L’expérience de Milgram.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/%C3%89thique%20et%20sciences/3-L%E2%80%99exp%C3%A9rience%20de%20Milgram.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            4-L’éthique de la science et de la technologie.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/%C3%89thique%20et%20sciences/4-L%E2%80%99%C3%A9thique%20de%20la%20science%20et%20de%20la%20technologie.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📊</span>
+                            <span class="badge-type badge-pptx">PPTX</span>
+                            5-Suite de l_éthique de la science et de la technologie.pptx
+                        </span>
+                        <div class="document-actions">
+                            
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/%C3%89thique%20et%20sciences/5-Suite%20de%20l_%C3%A9thique%20de%20la%20science%20et%20de%20la%20technologie.pptx" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div><h2 id="section-📂-documents-divers" class="section-title">📂 Documents Divers</h2><div class="courses-grid">
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">📄</span>
+                            <span class="badge-type badge-pdf">PDF</span>
+                            Plan du module Ethiques, sciences et techniques (EST) - 06-09-23.pdf
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/Plan%20du%20module%20Ethiques%2C%20sciences%20et%20techniques%20%28EST%29%20-%2006-09-23.pdf" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/Plan%20du%20module%20Ethiques%2C%20sciences%20et%20techniques%20%28EST%29%20-%2006-09-23.pdf" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">🎥</span>
+                            <span class="badge-type badge-mp4">MP4</span>
+                            Visioconférence semaine distanciel.mp4
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/Visioconf%C3%A9rence%20semaine%20distanciel.mp4" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/S1/S1/%C3%89thique/Visioconf%C3%A9rence%20semaine%20distanciel.mp4" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div>
+                    <div class="document-item" data-year="">
+                        <span class="document-name">
+                            <span class="file-icon">🎥</span>
+                            <span class="badge-type badge-mp4">MP4</span>
+                            Visioconférence semaine distanciel.mp4
+                        </span>
+                        <div class="document-actions">
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/%C3%89thique%20et%20sciences/Visioconf%C3%A9rence%20semaine%20distanciel.mp4" class="btn btn-view" target="_blank">Voir</a>
+                            <a href="../../../../tous_les_cours/Travail%20ING%201%20partag%C3%A9%201er%20semestre/%C3%89thique%20et%20sciences/Visioconf%C3%A9rence%20semaine%20distanciel.mp4" class="btn btn-download" download>Télécharger</a>
+                        </div>
+                    </div></div></div>
+        
+    </main>
+    <footer><div class="container"><p>&copy; 2024 ING1 - S1 • Design Premium</p></div></footer>
+    <script src="../../../navigation.js"></script>
+</body>
+</html>
